@@ -1,59 +1,78 @@
 @extends('layouts.auth')
 @section('content')
-<div class="max-w-[800px] mx-auto px-6">
-    <div class="grid shadow-xl rounded-xl border bg-white">
-        <form class="py-4 shadow-2xl" action="" method="POST">
-            <div class="px-2 pt-1.5 pb-1 relative">
-                <div class="text-2xl uppercase text-center">ĐĂNG KÝ TÀI KHOẢN</div>
-            </div>
-            @if ($errors->any())
-            <div class="p-4">
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+<div class="d-flex flex-column align-content-end">
+    <div class="app-auth-body mx-auto">
+        <div class="app-auth-branding mb-4"><a class="app-logo" href="index.html"><img class="me-2"
+                    src="/assets/logo2.png" alt="logo"></a></div>
+        <h2 class="auth-heading text-center mb-4">Đăng Ký Tài Khoản</h2>
 
-
-            @endif
-            <div class="p-4">
-            @if(Session::has('error'))
-            <p class="alert alert-danger">{{ Session::get('error') }}</p>
-            @endif
-            @if(Session::has('success'))
-            <p class="alert alert-success">{{ Session::get('success') }}</p>
-            @endif
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <small>{{ $errors->first() }}</small>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-            <div class="p-4">
+        @endif
+        @if(Session::has('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <small>{{ Session::get('error') }}</small>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <small>{{ Session::get('success') }}</small>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        <div class="auth-form-container text-start mx-auto">
+            <form class="auth-form auth-signup-form" action="" method="POST">
                 @csrf
-                <div class="mt-6">
-                    <div>
-                        <input type="text" name="login" required class="form-control" value="{{ old('login') }}" placeholder="Tài khoản">
-                    </div>
+                <div class="email mb-3">
+                    <label class="sr-only" for="signup-email">Tên đăng nhập</label>
+                    <input value="{{ old('login') }}" id="signup-name" name="login" type="text"
+                        class="form-control signup-name" placeholder="Tên đăng nhập" requireds="requireds">
                 </div>
-                <div class="mt-6">
-                    <div>
-                        <input type="password" name="passwd" required class="form-control" value="" placeholder="Mật khẩu">
-                    </div>
+                <div class="email mb-3">
+                    <label class="sr-only" for="signup-email">Mật khẩu</label>
+                    <input id="signup-email" name="passwd" type="password" class="form-control signup-email"
+                        placeholder="Mật khẩu" requireds="requireds">
                 </div>
-                <div class="mt-6">
-                    <div>
-                        <input type="password" name="passwdConfirm" required class="form-control" value="" placeholder="Nhập lại mật khẩu">
-                    </div>
+                <div class="password mb-3">
+                    <label class="sr-only" for="signup-password">Nhập lại mật khẩu</label>
+                    <input id="signup-password" name="passwdConfirm" type="password"
+                        class="form-control signup-password" placeholder="Nhập lại mật khẩu" requireds="requireds">
                 </div>
-                <div class="mt-6">
-                    <div>
-                        <input type="email" name="email" required class="form-control" value="{{ old('login') }}" placeholder="Email">
-                    </div>
+                <div class="email mb-3">
+                    <label class="sr-only" for="signup-email">Email</label>
+                    <input value="{{ old('email') }}" id="signup-name" name="email" type="email"
+                        class="form-control signup-name" placeholder="Địa chỉ email" requireds="requireds">
                 </div>
-            </div>
-            <div class="mx-4">
-                <button type="submit" class="bg-teal-600 text-white rounded-md w-full py-3">Đăng ký</button>
-            </div>
-        </form>
+                <!--//extra-->
+
+                <div class="text-center">
+                    <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Đăng ký</button>
+                </div>
+            </form>
+            <!--//auth-form-->
+
+            <div class="auth-option text-center pt-5">Đã có tài khoản? <a class="text-link" href="/dang-nhap">Đăng
+                    nhập</a></div>
+        </div>
+        <!--//auth-form-container-->
+
+
+
     </div>
+    <!--//auth-body-->
+
+    <footer class="app-auth-footer">
+        <div class="container text-center py-3">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Copyright 2024 © <span class="sr-only">love</span><i class="fas fa-heart"
+                    style="color: #fb866a;"></i> by TruTien.Vn</small>
+
+        </div>
+    </footer>
+    <!--//app-auth-footer-->
 </div>
 @endsection

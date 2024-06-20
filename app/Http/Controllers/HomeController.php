@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use App\Models\Shop;
+use App\Models\Transaction;
 use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -35,14 +36,15 @@ class HomeController extends Controller
     public function signupPost(Request $request)
     {
         $validated = $request->validate([
-            'login' => 'required|min:4|max:10|alpha_num',
-            'passwd' => 'required|min:4|max:10|alpha_num',
-            'passwdConfirm' => 'required|same:passwd',
-            'email' => 'required|email|unique:users,email',
+            'login' => 'bail|required|min:4|max:10|alpha_num|unique:users,username',
+            'passwd' => 'bail|required|min:4|max:10|alpha_num',
+            'passwdConfirm' => 'bail|required|same:passwd',
+            'email' => 'bail|required|email|unique:users,email',
         ], [
             "login.min" => "Tên đăng nhập chỉ được chứa từ 3 - 10 kí tự",
             "login.max" => "Tên đăng nhập chỉ được chứa từ 3 - 10 kí tự",
             "login.alpha_num" => "Tên đăng nhập chỉ được chứa chữ và số",
+            "login.unique" => "Tên đăng nhập đã được sử dụng",
             "passwd.min" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
             "passwd.max" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
             "passwd.alpha_num" => "Mật khẩu chỉ được chứa chữ và số",
@@ -51,7 +53,7 @@ class HomeController extends Controller
         sleep(2);
         $gameApi = env('GAME_API_ENDPOINT', '');
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', $gameApi.'/html/reg.php', ["form_params" => [
+        $response = $client->request('POST', $gameApi . '/html/reg.php', ["form_params" => [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
             "repasswd" => $request->passwd,
@@ -89,11 +91,47 @@ class HomeController extends Controller
         if (\Auth::attempt($login)) {
             if (\Auth::user()->role != "member") {
                 \Auth::logout();
-                return redirect()->back()->with('error', 'Tên đăng nhập hoặc mật khẩu không chính xác');
+                return redirect()->back()->with('error', 'Thông tin đăng nhập không chính xác');
             }
             return redirect('/');
         } else {
-            return redirect()->back()->with('error', 'Tên đăng nhập hoặc mật khẩu không chính xác');
+            return redirect()->back()->with('error', 'Thông tin đăng nhập không chính xác');
         }
+    }
+
+    public function getNapTien()
+    {
+        return view("deposit");
+    }
+
+    public function getShop()
+    {
+        $shops = Shop::all();
+        return view("shop", ["shops" => $shops]);
+    }
+
+    public function postShop(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->main_id == "") {
+            return redirect()->back()->with('error', 'Chưa chọn nhân vật để mua vật phẩm.');
+        }
+        $shop = Shop::find($request->shop_id);
+        $balance = $user->balance;
+        $cash = $request->quantity * $shop->price;
+        if ($balance < $cash) {
+            return redirect()->back()->with('error', 'Số xu trong tài khoản không đủ, vui lòng nạp thêm.');
+        }
+        $user->balance = $balance - $cash;
+        $user->save();
+
+        $transaction = new Transaction;
+        $transaction->user_id = $user->id;
+        $transaction->shop_quantity = $request->quantity;
+        $transaction->shop_id = $request->shop_id;
+        $transaction->type = "shop";
+        $transaction->char_id = $request->char_id;
+        $transaction->save();
+        return back();
     }
 }

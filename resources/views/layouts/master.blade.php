@@ -1,242 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
-    <link rel="icon" href="/assets/images/favicon.png" type="image/png">
-    <title>THÔNG TIN TÀI KHOẢN</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .title-content::before{
-            content: '';
-            width: calc(100% + 30px);
-            height: 100%;
-            position: absolute;
-            top: 0px;
-            left: 0;
-            z-index: -1;
-            border-bottom: 21px solid #14b8a6;
-            border-top: 22px solid #14b8a6;
-            border-left: 0 solid transparent;
-            border-right: 26px solid transparent;
-        }
-        .form-control:disabled, .form-control[readonly] {
-            background-color: #e9ecef;
-            opacity: 1;
-        }
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.375rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
+  <title>Tru Tiên Việt Nam</title>
 
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .alert {
-            position: relative;
-            padding: .75rem 1.25rem;
-            border: 1px solid transparent;
-            border-radius: .25rem;
-        }
-        .wd-10 {
-            width: 10rem;
-        }
-    </style>
+  <meta name="description" content="Tru Tiên Việt Nam - Hoạ Ảnh Giáng Lâm">
+  <meta name="author" content="Tru Tiên Việt Nam">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- FontAwesome JS-->
+  <script defer src="/assets/new/assets/plugins/fontawesome/js/all.min.js"></script>
+
+  <!-- App CSS -->
+  <link id="theme-style" rel="stylesheet" href="/assets/new/assets/css/portal.css">
+  @php
+  $user = Auth::user();
+  @endphp
 </head>
 
-<body class="bg-no-repeat bg-cover h-screen" style="background-image: url('assets/images/bg.jpg')">
-<header class="fixed top-0 left-0 w-full z-20">
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-        <div class="container-fluid flex items-center justify-between px-8 bg-teal-500">
-            <a class="navbar-brand" href="javascript:void(0)">
-                <img src="/assets/logo2.png" alt="Logo" class="wd-10 h-24 object-contain">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+<body class="app">
+  <header class="app-header fixed-top">
+    <div class="app-header-inner">
+      <div class="container-fluid py-2">
+        <div class="app-header-content">
+          <div class="row justify-content-between align-items-center">
 
+            <div class="col-auto">
+              <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img">
+                  <title>Menu</title>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
+                    d="M4 7h22M4 15h22M4 23h22"></path>
+                </svg>
+              </a>
+            </div>
+            <!--//col-->
+            <div class="search-mobile-trigger d-sm-none col">
+              <i class="search-mobile-trigger-icon fa-solid fa-magnifying-glass"></i>
+            </div>
+            <!--//app-search-box-->
+
+            <div class="app-utilities col-auto">
+
+              <div class="app-utility-item app-user-dropdown dropdown">
+                <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                  aria-expanded="false"><img src="/assets/new/assets/images/user.png" alt="user profile"></a>
+                <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                  <li><a class="dropdown-item" href="/logout">Thoát</a></li>
                 </ul>
+              </div>
+              <!--//app-user-dropdown-->
             </div>
-
-
-            <ul class="navbar-nav ml-auto">
-                <!-- Nếu đã đăng nhập, hiển thị menu "Thoát" -->
-                <li class="nav-item flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-300">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                    </svg>
-
-                    <a class="nav-link text-white" href="/logout"><i class="las la-sign-out-alt"></i>Thoát</a>
-                </li>
-            </ul>
+            <!--//app-utilities-->
+          </div>
+          <!--//row-->
         </div>
-    </nav>
-</header>
-
-<!-- Nội dung trang web ở đây -->
-<div class="my-4 lg:my-20 py-[80px]">
-    <div class="max-w-[1200px] mx-auto px-6">
-        <div class="grid grid-cols-3 shadow-xl rounded-xl border bg-white">
-            <div class="col-span-1 p-4">
-                <div>
-                    <img src="/assets/logo2.png" alt="" class="w-20 h-20 object-contain">
-                </div>
-                <div class="mb-8">
-                    <div class="text-blue-500">Xu: 0</div>
-                    <div class="text-green-600">Xu hồng lợi: 0</div>
-                </div>
-                <div>
-                    <ul>
-                        <li class="py-3 border-y">
-                            <a
-                                    href="/index.html"
-                                    class="text-teal-600 font-bold text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                </svg>
-
-                                Thông tin
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-
-                                Nạp tiền
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-
-                                Lịch sử nạp tiền
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                Đổi KNB
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                Đổi KNB
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                                KNB Hồng lợi
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                                </svg>
-                                Giftcode
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                </svg>
-                                Thông tin vip
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
-                                </svg>
-                                Đổi mật khẩu
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
-                                </svg>
-                                Đổi thông tin
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-span-2 py-4 shadow-2xl">
-                @yield('content')
-            </div>
-        </div>
+        <!--//app-header-content-->
+      </div>
+      <!--//container-fluid-->
     </div>
-</div>
+    <!--//app-header-inner-->
+    <div id="app-sidepanel" class="app-sidepanel">
+      <div id="sidepanel-drop" class="sidepanel-drop"></div>
+      <div class="sidepanel-inner d-flex flex-column">
+        <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+        <div class="app-branding">
+          <a class="app-logo" href="/"><img class="logo-icon me-2" src="/assets/logo2.png" alt="logo"><span
+              class="logo-text">{{ $user->username }}</span></a>
+
+        </div>
+        <!--//app-branding-->
+
+        <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
+          <ul class="app-menu list-unstyled accordion" id="menu-accordion">
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link active" href="/">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Trang chủ</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <!--//nav-item-->
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link" href="/">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                    <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Nạp tiền</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link" href="/">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-exchange" viewBox="0 0 16 16">
+                    <path d="M0 5a5 5 0 0 0 4.027 4.905 6.5 6.5 0 0 1 .544-2.073C3.695 7.536 3.132 6.864 3 5.91h-.5v-.426h.466V5.05q-.001-.07.004-.135H2.5v-.427h.511C3.236 3.24 4.213 2.5 5.681 2.5c.316 0 .59.031.819.085v.733a3.5 3.5 0 0 0-.815-.082c-.919 0-1.538.466-1.734 1.252h1.917v.427h-1.98q-.004.07-.003.147v.422h1.983v.427H3.93c.118.602.468 1.03 1.005 1.229a6.5 6.5 0 0 1 4.97-3.113A5.002 5.002 0 0 0 0 5m16 5.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0m-7.75 1.322c.069.835.746 1.485 1.964 1.562V14h.54v-.62c1.259-.086 1.996-.74 1.996-1.69 0-.865-.563-1.31-1.57-1.54l-.426-.1V8.374c.54.06.884.347.966.745h.948c-.07-.804-.779-1.433-1.914-1.502V7h-.54v.629c-1.076.103-1.808.732-1.808 1.622 0 .787.544 1.288 1.45 1.493l.358.085v1.78c-.554-.08-.92-.376-1.003-.787zm1.96-1.895c-.532-.12-.82-.364-.82-.732 0-.41.311-.719.824-.809v1.54h-.005zm.622 1.044c.645.145.943.38.943.796 0 .474-.37.8-1.02.86v-1.674z"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Lịch sử nạp tiền</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link" href="/">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Đổi KNB</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link" href="/shops">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                    <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Shop vật phẩm</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <li class="nav-item">
+              <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+              <a class="nav-link" href="/">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift" viewBox="0 0 16 16">
+                    <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zM1 4v2h6V4zm8 0v2h6V4zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5z"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Giftcode</span>
+              </a>
+              <!--//nav-link-->
+            </li>
+            <!--//nav-item-->
+          </ul>
+          <!--//app-menu-->
+        </nav>
+
+      </div>
+      <!--//sidepanel-inner-->
+    </div>
+    <!--//app-sidepanel-->
+  </header>
+  <!--//app-header-->
+
+  <div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4" style="min-height:100vh">
+      @yield('content')
+      <!--//container-fluid-->
+    </div>
+    <!--//app-content-->
+
+    <footer class="app-auth-footer">
+      <div class="container text-center py-3">
+        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+        <small class="copyright">Copyright 2024 © <span class="sr-only">love</span><i class="fas fa-heart"
+            style="color: #fb866a;"></i> by TruTien.Vn</small>
+
+      </div>
+    </footer>
+    <!--//app-footer-->
+
+  </div>
+  <!--//app-wrapper-->
+
+
+  <!-- Javascript -->
+  <script src="/assets/new/assets/plugins/popper.min.js"></script>
+  <script src="/assets/new/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+  <!-- Page Specific JS -->
+  <script src="/assets/new/assets/js/app.js"></script>
 
 </body>
+
 </html>

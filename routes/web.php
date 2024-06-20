@@ -29,18 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Auth::logout();
 		return redirect("/dang-nhap");
 	});
-});
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [HomeController::class, 'home']);
-    Route::get('/logout', function() {
-		Auth::logout();
-		return redirect("/dang-nhap");
-	});
+	Route::get('/nap-tien', [HomeController::class, 'getNapTien']);
+	Route::get('/shops', [HomeController::class, 'getShop']);
+	Route::post('/shops', [HomeController::class, 'postShop']);
 });
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [AdminController::class, 'home']);
-})->middleware(IsAdmin::class);
 
 

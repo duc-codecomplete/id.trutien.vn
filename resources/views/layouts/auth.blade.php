@@ -2,119 +2,43 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/assets/logo2.png" type="image/x-icon">
-    <link rel="icon" href="/assets/logo2.png" type="image/png">
-    <title>THÔNG TIN TÀI KHOẢN</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .title-content::before {
-            content: '';
-            width: calc(100% + 30px);
-            height: 100%;
-            position: absolute;
-            top: 0px;
-            left: 0;
-            z-index: -1;
-            border-bottom: 21px solid #14b8a6;
-            border-top: 22px solid #14b8a6;
-            border-left: 0 solid transparent;
-            border-right: 26px solid transparent;
-        }
 
-        .form-control:disabled,
-        .form-control[readonly] {
-            background-color: #e9ecef;
-            opacity: 1;
-        }
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
 
-        .wd-10 {
-            width: 10rem;
-        }
+    <!-- FontAwesome JS-->
+    <script defer src="/assets/new/assets/plugins/fontawesome/js/all.min.js"></script>
 
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border-radius: 0.375rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
+    <!-- App CSS -->
+    <link id="theme-style" rel="stylesheet" href="/assets/new/assets/css/portal.css">
 
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-
-        .alert {
-            position: relative;
-            padding: .75rem 1.25rem;
-            border: 1px solid transparent;
-            border-radius: .25rem;
-        }
-    </style>
 </head>
 
-<body class="bg-no-repeat bg-cover h-screen" style="background-image: url('assets/images/bg.jpg')">
-    <header>
-        <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-            <div class="container-fluid flex items-center justify-between px-8 bg-teal-500">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/logo2.png" alt="Logo" class="wd-10 h-24 object-contain">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-
-                    </ul>
-                </div>
-
-
-                <ul class="navbar-nav ml-auto flex gap-6">
-                    <!-- Nếu đã đăng nhập, hiển thị menu "Thoát" -->
-                    <li class="nav-item flex items-center gap-1">
-                        <a class="nav-link text-white" href="/dang-ky"><i class="las la-sign-out-alt"></i>Đăng
-                            ký</a>
-                    </li>
-                    <li class="nav-item flex items-center gap-1">
-                        <a class="nav-link text-white" href="/dang-nhap"><i class="las la-sign-out-alt"></i>Đăng
-                            nhập</a>
-                    </li>
-                </ul>
+<body class="app app-login p-0">
+    <div class="row g-0 app-auth-wrapper">
+        <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
+            @yield('content')
+        </div>
+        <!--//auth-main-col-->
+        <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
+            <div class="auth-background-holder">
             </div>
-        </nav>
-    </header>
+            <div class="auth-background-mask"></div>
+        </div>
+        <!--//auth-background-col-->
 
-    <!-- Nội dung trang web ở đây -->
-    <div class="my-4 lg:my-20">
-        @yield('content')
     </div>
+    <!--//row-->
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 
 </html>
