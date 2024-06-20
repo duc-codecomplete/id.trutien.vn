@@ -24,18 +24,18 @@ Route::post('/dang-nhap', [HomeController::class, 'signinPost']);
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [HomeController::class, 'home']);
+    Route::get('/', [HomeController::class, 'home'])->name("home");
 	Route::post('/set_main_char', [HomeController::class, 'setMainChar']);
     Route::get('/logout', function() {
 		Auth::logout();
 		return redirect("/dang-nhap");
 	});
 
-	Route::get('/nap-tien', [HomeController::class, 'getNapTien']);
-	Route::get('/shops', [HomeController::class, 'getShop']);
+	Route::get('/nap-tien', [HomeController::class, 'getNapTien'])->name("payment");
+	Route::get('/shops', [HomeController::class, 'getShop'])->name("shops");
 	Route::post('/shops', [HomeController::class, 'postShop']);
 
-	Route::get('/giftcodes', [HomeController::class, 'getGiftCode']);
+	Route::get('/giftcodes', [HomeController::class, 'getGiftCode'])->name("giftcodes");
 	Route::get('/giftcodes/{id}/using', [HomeController::class, 'useGiftCode']);
 });
 
