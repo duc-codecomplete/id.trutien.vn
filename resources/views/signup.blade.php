@@ -31,22 +31,22 @@
                 @csrf
                 <div class="mt-6">
                     <div>
-                        <input type="text" required class="form-control" value="{{ old('login') }}" placeholder="Tài khoản">
+                        <input type="text" name="login" required class="form-control" value="{{ old('login') }}" placeholder="Tài khoản">
                     </div>
                 </div>
                 <div class="mt-6">
                     <div>
-                        <input type="password" required class="form-control" value="" placeholder="Mật khẩu">
+                        <input type="password" name="passwd" required class="form-control" value="" placeholder="Mật khẩu">
                     </div>
                 </div>
                 <div class="mt-6">
                     <div>
-                        <input type="password" required class="form-control" value="" placeholder="Nhập lại mật khẩu">
+                        <input type="password" name="passwdConfirm" required class="form-control" value="" placeholder="Nhập lại mật khẩu">
                     </div>
                 </div>
                 <div class="mt-6">
                     <div>
-                        <input type="email" required class="form-control" value="{{ old('login') }}" placeholder="Email">
+                        <input type="email" name="email" required class="form-control" value="{{ old('login') }}" placeholder="Email">
                     </div>
                 </div>
             </div>
