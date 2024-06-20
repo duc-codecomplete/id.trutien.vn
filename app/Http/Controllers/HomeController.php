@@ -131,11 +131,15 @@ class HomeController extends Controller
         if ($user->main_id == "") {
             return redirect()->back()->with('error', 'Chưa chọn nhân vật để mua vật phẩm.');
         }
+
         $shop = Shop::find($request->shop_id);
+        if ($request->quantity > $shop->stack) {
+            return redirect()->back()->with('error', 'Số lượng không thể lớn hơn số lượng xếp chồng của vật phẩm.');
+        }
         $balance = $user->balance;
         $cash = $request->quantity * $shop->price;
         if ($balance < $cash) {
-            return redirect()->back()->with('error', 'Số xu trong tài khoản không đủ, vui lòng nạp thêm.');
+            return redirect()->back()->with('error', 'Số xu trong tài khoản không đủ (cần ' . $cash . ' xu, thiếu ' . $cash - $balance . ' xu), vui lòng nạp thêm.');
         }
         $user->balance = $balance - $cash;
         $user->save();
@@ -145,7 +149,7 @@ class HomeController extends Controller
         $transaction->shop_quantity = $request->quantity;
         $transaction->shop_id = $request->shop_id;
         $transaction->type = "shop";
-        $transaction->char_id = $request->char_id;
+        $transaction->char_id = $user->main_id;
         $transaction->save();
         return back();
     }
@@ -217,5 +221,49 @@ class HomeController extends Controller
         $response = $client->request('get', $gameApi . '/html/char_update.php');
         $content = json_decode($response->getBody()->getContents(), true);
         return redirect("/shops");
+    }
+
+    public function getKnb()
+    {
+        return view("knb");
+    }
+
+    public function postKnb()
+    {
+        $ratio = 3;
+        $user = Auth::user();
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $client = new \GuzzleHttp\Client();
+        $xu = request()->cash;
+        if ($xu < 50 || $xu > $user->balance) {
+            return back()->with("error", "Số xu nạp phải lớn hơn 50 và nhỏ hơn số dư xu hiện có!");
+        }
+        try {
+            DB::beginTransaction();
+            $client->request('POST', $gameApi . '/html/knb.php', ["form_params" => [
+                "userid" => $user->userid,
+                "cash" => intval($xu) * $ratio * 100,
+            ]]);
+            $user->balance = intval($user->balance) - $xu;
+            $user->save();
+
+            $transaction = new Transaction;
+            $transaction->user_id = $user->id;
+            $transaction->knb_amount = $xu;
+            $transaction->type = "knb";
+            $transaction->save();
+            return back()->with("success", "Đã chuyển " . intval($xu) * $ratio . " KNB vào game thành công!");
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollback();
+            return back()->with("error", "Có lỗi xảy ra, vui lòng liên hệ GM!");
+        }
+    }
+
+    public function transactions()
+    {
+        $shops = Transaction::where("type", "shop")->latest()->get();
+        $knbs = Transaction::where("type", "knb")->latest()->get();
+        return view("transactions", ["shops" => $shops, "knbs" => $knbs]);
     }
 }

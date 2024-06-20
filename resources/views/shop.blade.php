@@ -47,7 +47,7 @@
                             <li><span class=""><i class="fa fa-dollar"></i> Giá:</span> {{ $item->price }} xu</li>
                             <li><span class="">Mô tả:</span> {{ $item->description }}</li>
                             <li><span class="">Xếp chồng:</span> {{ $item->stack }}</li>
-                            <li><span class="">Đã bán:</span> 30</li>
+                            <li><span class="">Đã bán:</span> {{ $item->getSell() }}</li>
                         </ul>
                     </div>
                     <br>
@@ -55,7 +55,7 @@
                 <form class="row p-4" action="" method="POST">
                     @csrf
                     <div class="col-10">
-                        <input type="number" min="1" required name="quantity" class="form-control"
+                        <input type="number" min="1" max="{{ $item->stack }}" required name="quantity" class="form-control quantity"
                             placeholder="Số lượng">
                         <input type="hidden" value="{{ $item->itemid }}" name="itemid" class="form-control"
                             placeholder="Số lượng">
@@ -63,7 +63,7 @@
                             placeholder="Số lượng">
                     </div>
                     <div class="col-2">
-                        <button type="submit" class="btn btn-sm btn-primary text-center">Mua</button>
+                        <button onclick="return confirm('Bạn có chắc chắn muốn mua không?')" type="submit" class="btn btn-sm btn-primary text-center">Mua</button>
                     </div>
                 </form>
 

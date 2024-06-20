@@ -32,12 +32,16 @@ Route::group(['middleware' => 'auth'], function () {
 		return redirect("/dang-nhap");
 	});
 
+	Route::get('/knb', [HomeController::class, 'getKnb'])->name("knb");
+	Route::post('/knb', [HomeController::class, 'postKnb']);
+
 	Route::get('/nap-tien', [HomeController::class, 'getNapTien'])->name("payment");
 	Route::get('/shops', [HomeController::class, 'getShop'])->name("shops");
 	Route::post('/shops', [HomeController::class, 'postShop']);
 
 	Route::get('/giftcodes', [HomeController::class, 'getGiftCode'])->name("giftcodes");
 	Route::get('/giftcodes/{id}/using', [HomeController::class, 'useGiftCode']);
+	Route::get('/transactions', [HomeController::class, 'transactions'])->name("transactions");
 });
 
 
