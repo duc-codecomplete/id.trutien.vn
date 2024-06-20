@@ -13,8 +13,6 @@
         <div class="col-4">
             <select name="char_id" class="form-control">
                 <option value="">---Chọn nhân vật để mua---</option>
-                <option value="">AAAA</option>
-                <option value="">BBBB</option>
             </select>
         </div>
 
