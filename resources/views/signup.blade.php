@@ -1,50 +1,59 @@
-@extends('layouts.master')
+@extends('layouts.auth')
 @section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-center">ĐĂNG KÝ</h3>
-                    <form action="" method="POST">
-                        @csrf
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                        @if(Session::has('error'))
-                        <p class="alert alert-danger">{{ Session::get('error') }}</p>
-                        @endif
-                        @if(Session::has('success'))
-                        <p class="alert alert-success">{{ Session::get('success') }}</p>
-                        @endif
-                        <div class="form-group">
-                            <label for="username">* Tên đăng nhập</label>
-                            <input value="{{ old('login') }}" type="text" required class="form-control" name="login" placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">* Mật khẩu</label>
-                            <input type="password" required class="form-control" name="passwd" placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-password">* Xác nhận mật khẩu</label>
-                            <input type="password" required class="form-control" name="passwdConfirm"
-                                placeholder="Confirm password">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">* Email</label>
-                            <input value="{{ old('email') }}" type="email" required class="form-control" name="email" placeholder="Enter email">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
-                    </form>
+<div class="max-w-[800px] mx-auto px-6">
+    <div class="grid shadow-xl rounded-xl border bg-white">
+        <form class="py-4 shadow-2xl" action="" method="POST">
+            <div class="px-2 pt-1.5 pb-1 relative">
+                <div class="text-2xl uppercase text-center">ĐĂNG KÝ TÀI KHOẢN</div>
+            </div>
+            @if ($errors->any())
+            <div class="p-4">
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
+
+
+            @endif
+            <div class="p-4">
+            @if(Session::has('error'))
+            <p class="alert alert-danger">{{ Session::get('error') }}</p>
+            @endif
+            @if(Session::has('success'))
+            <p class="alert alert-success">{{ Session::get('success') }}</p>
+            @endif
         </div>
+            <div class="p-4">
+                @csrf
+                <div class="mt-6">
+                    <div>
+                        <input type="text" required class="form-control" value="{{ old('login') }}" placeholder="Tài khoản">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div>
+                        <input type="password" required class="form-control" value="" placeholder="Mật khẩu">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div>
+                        <input type="password" required class="form-control" value="" placeholder="Nhập lại mật khẩu">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div>
+                        <input type="email" required class="form-control" value="{{ old('login') }}" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="mx-4">
+                <button type="submit" class="bg-teal-600 text-white rounded-md w-full py-3">Đăng ký</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

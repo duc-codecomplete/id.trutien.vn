@@ -45,27 +45,6 @@
             border-radius: 0.375rem;
             transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         }
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-
-        .alert {
-            position: relative;
-            padding: .75rem 1.25rem;
-            border: 1px solid transparent;
-            border-radius: .25rem;
-        }
-        .wd-10 {
-            width: 10rem;
-        }
     </style>
 </head>
 
@@ -74,7 +53,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
         <div class="container-fluid flex items-center justify-between px-8 bg-teal-500">
             <a class="navbar-brand" href="javascript:void(0)">
-                <img src="/assets/logo2.png" alt="Logo" class="wd-10 h-24 object-contain">
+                <img src="/assets/images/logo.png" alt="Logo" class="w-24 h-24 object-contain">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -93,7 +72,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                     </svg>
 
-                    <a class="nav-link text-white" href="/logout"><i class="las la-sign-out-alt"></i>Thoát</a>
+                    <a class="nav-link text-white" href="javascript:void(0)"><i class="las la-sign-out-alt"></i>Thoát</a>
                 </li>
             </ul>
         </div>
@@ -106,7 +85,7 @@
         <div class="grid grid-cols-3 shadow-xl rounded-xl border bg-white">
             <div class="col-span-1 p-4">
                 <div>
-                    <img src="/assets/logo2.png" alt="" class="w-20 h-20 object-contain">
+                    <img src="assets/images/logo.png" alt="" class="w-20 h-20 object-contain">
                 </div>
                 <div class="mb-8">
                     <div class="text-blue-500">Xu: 0</div>
@@ -114,27 +93,26 @@
                 </div>
                 <div>
                     <ul>
+                        <li class="py-3 border-t">
+                            <a
+                                    href=""
+                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
+                            >
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                </svg>
+                                Thông tin
+                            </a>
+                        </li>
                         <li class="py-3 border-y">
                             <a
                                     href="/index.html"
                                     class="text-teal-600 font-bold text-lg uppercase flex items-center gap-1"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                </svg>
-
-                                Thông tin
-                            </a>
-                        </li>
-                        <li class="py-3 border-t">
-                            <a
-                                    href=""
-                                    class="text-gray-700 font-medium text-lg uppercase flex items-center gap-1"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
-
                                 Nạp tiền
                             </a>
                         </li>
@@ -232,7 +210,33 @@
             </div>
 
             <div class="col-span-2 py-4 shadow-2xl">
-                @yield('content')
+                <div class="bg-teal-500 px-2 pt-1.5 pb-1 relative title-content" style="z-index: 1">
+                    <div class="text-white text-2xl uppercase">Thông tin tài khoản</div>
+                </div>
+                <div class="p-4">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label>ID</label>
+                            <input type="text" class="form-control" value="123935" readonly="">
+                        </div>
+                        <div>
+                            <label>User Name</label>
+                            <input type="text" class="form-control" value="123935" readonly="">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <div>
+                            <label>Email</label>
+                            <input type="email" class="form-control" value="123935@gmail.com">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <div>
+                            <label>Phone</label>
+                            <input type="number" class="form-control" value="0909999999">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

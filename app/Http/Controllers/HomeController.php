@@ -5,22 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
 
     public function home()
     {
-        return view('home');
+        $user = Auth::user();
+        return view('home', ["user" => $user]);
     }
 
     public function signup()
     {
+        if (Auth::check()) {
+            return redirect("/");
+        }
         return view('signup');
     }
 
     public function signin()
     {
+        if (Auth::check()) {
+            return redirect("/");
+        }
         return view('signin');
     }
 
@@ -41,8 +49,9 @@ class HomeController extends Controller
             "passwdConfirm.same" => "Mật khẩu nhập lại không đúng",
         ]);
         sleep(2);
+        $gameApi = env('GAME_API_ENDPOINT', '');
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://103.57.220.179/html/reg.php', ["form_params" => [
+        $response = $client->request('POST', $gameApi.'/html/reg.php', ["form_params" => [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
             "repasswd" => $request->passwd,
@@ -78,6 +87,10 @@ class HomeController extends Controller
             'password' => $request->password,
         ];
         if (\Auth::attempt($login)) {
+            if (\Auth::user()->role != "member") {
+                \Auth::logout();
+                return redirect()->back()->with('error', 'Tên đăng nhập hoặc mật khẩu không chính xác');
+            }
             return redirect('/');
         } else {
             return redirect()->back()->with('error', 'Tên đăng nhập hoặc mật khẩu không chính xác');

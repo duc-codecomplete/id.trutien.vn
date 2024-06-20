@@ -1,30 +1,42 @@
-@extends('layouts.master')
+@extends('layouts.auth')
 @section('content')
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-center">ĐĂNG NHẬP</h3>
-                    <form action="" method="POST">
-                        @csrf
-                        @if(Session::has('error'))
-                            <p class="alert alert-danger" style="text-align: center;color:red">{{ Session::get('error') }}
-                        </p>
-                        @endif
-                        <div class="form-group">
-                            <label for="username">* Tên đăng nhập</label>
-                            <input value="{{ old('login') }}" required type="text" class="form-control" name="login" placeholder="Enter username">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">* Mật khẩu</label>
-                            <input required type="password" class="form-control" name="password" placeholder="Enter password">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                    </form>
+<div class="max-w-[800px] mx-auto px-6">
+    <div class="grid shadow-xl rounded-xl border bg-white">
+        <form class="py-4 shadow-2xl" action="" method="POST">
+            <div class="px-2 pt-1.5 pb-1 relative">
+                <div class="text-2xl uppercase text-center">Đăng Nhập</div>
+            </div>
+            @csrf
+            <div class="p-4">
+                @if(Session::has('error'))
+                <p class="alert alert-danger" style="text-align: center;color:red">{{ Session::get('error') }}
+                </p>
+                @endif
+            </div>
+            <div class="p-4">
+                <div class="mt-6">
+                    <div>
+                        <input class="form-control" name="login" placeholder="Tên đăng nhập">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <div>
+                        <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
+                    </div>
+                </div>
+                <div class="text-right mt-6">
+                    <div>
+                        <a href="javascript:void(0)">Quên mật khẩu ?</a>
+                    </div>
+                    <div>
+                        <a href="/dang-ky">Đăng ký tài khoản mới ?</a>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="mx-4">
+                <button type="submit" class="bg-teal-600 text-white rounded-md w-full py-3">Đăng nhập</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
