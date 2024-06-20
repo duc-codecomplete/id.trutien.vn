@@ -8,7 +8,7 @@
                 <p><small style="">*Nếu không thấy nhân vật, <a href="/shops">bấm vào đây</a> để cập nhật</small></p>
         </div>
     </div>
-    <form class="row" action="" method="POST">
+    <form class="row" action="/set_main_char" method="POST">
         @csrf
         <div class="col-4">
             <select name="char_id" class="form-control">

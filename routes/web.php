@@ -25,6 +25,7 @@ Route::post('/dang-nhap', [HomeController::class, 'signinPost']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home']);
+	Route::post('/set_main_char', [HomeController::class, 'setMainChar']);
     Route::get('/logout', function() {
 		Auth::logout();
 		return redirect("/dang-nhap");
@@ -33,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/nap-tien', [HomeController::class, 'getNapTien']);
 	Route::get('/shops', [HomeController::class, 'getShop']);
 	Route::post('/shops', [HomeController::class, 'postShop']);
+
+	Route::get('/giftcodes', [HomeController::class, 'getGiftCode']);
+	Route::get('/giftcodes/{id}/using', [HomeController::class, 'useGiftCode']);
 });
 
 

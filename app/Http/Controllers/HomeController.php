@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\Transaction;
+use App\Models\Giftcode;
+use App\Models\GiftcodeUser;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -106,7 +108,7 @@ class HomeController extends Controller
 
     public function getShop()
     {
-        $shops = Shop::all();
+        $shops = Shop::where("status", "active")->get();
         return view("shop", ["shops" => $shops]);
     }
 
@@ -133,5 +135,36 @@ class HomeController extends Controller
         $transaction->char_id = $request->char_id;
         $transaction->save();
         return back();
+    }
+
+
+    public function getGiftcode()
+    {
+        $giftcodes = Giftcode::all();
+        return view("giftcodes", ["giftcodes" => $giftcodes]);
+    }
+
+    public function setMainChar()
+    {
+        $user = Auth::user();
+        $user->main_id = request()->main_id;
+        $user->save();
+        return redirect("/shops");
+    }
+
+    public function useGiftcode(Request $request, $id)
+    {
+        $user = Auth::user();
+        $userGiftcode = GiftcodeUser::where(["user_id" => $user->id, "giftcode_id" => $id])->first();
+        if ($userGiftcode) {
+            return redirect()->back()->with('error', 'Bạn đã dùng giftcode này!');
+        }
+        $item = new GiftcodeUser;
+        $item->user_id = $user->id;
+        $item->giftcode_id = $id;
+
+        $item->save();
+
+        return back()->with('success', 'Bạn đã dùng giftcode thành công!');
     }
 }
