@@ -4,15 +4,20 @@
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
             <h1 class="app-page-title mb-0">Vật phẩm bày bán</h1> <small style="color:red">*Lưu ý: chọn nhân vật mặc
-                định trước khi mua, nếu không chọn, chúng tôi sẽ không chịu trách nhiệm</small>
-                <p><small style="">*Nếu không thấy nhân vật, <a href="/shops">bấm vào đây</a> để cập nhật</small></p>
+                định trước khi mua, nếu chọn sai, chúng tôi sẽ không chịu trách nhiệm</small>
+                <p><small style="">*Nếu không thấy nhân vật, <a href="/update_char">bấm vào đây</a> để cập nhật</small></p>
         </div>
     </div>
     <form class="row" action="/set_main_char" method="POST">
         @csrf
         <div class="col-4">
-            <select name="char_id" class="form-control">
-                <option value="">---Chọn nhân vật để mua---</option>
+            <select name="main_id" class="form-control">
+                <option value="">---Chọn nhân vật---</option>
+                @foreach ($chars as $item)
+                <option value="{{ $item['id'] }}" @php if ($item["id"] == Auth::user()->main_id) {
+                    echo "selected";
+                } @endphp>{{ $item['id'] }} - {{ $item['name'] }}</option>
+                @endforeach
             </select>
         </div>
 
@@ -41,6 +46,7 @@
                         <ul class="list-unstyled mb-0">
                             <li><span class=""><i class="fa fa-dollar"></i> Giá:</span> {{ $item->price }} xu</li>
                             <li><span class="">Mô tả:</span> {{ $item->description }}</li>
+                            <li><span class="">Xếp chồng:</span> {{ $item->stack }}</li>
                             <li><span class="">Đã bán:</span> 30</li>
                         </ul>
                     </div>

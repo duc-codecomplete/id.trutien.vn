@@ -2,16 +2,17 @@
 <html lang="en">
 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+    <title>Tru Tiên Việt Nam - Hoạ Ảnh Giáng Lâm</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="description" content="Tru Tiên Việt Nam - Hoạ Ảnh Giáng Lâm">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/logo2.png">
 
     <!-- FontAwesome JS-->
     <script defer src="/assets/new/assets/plugins/fontawesome/js/all.min.js"></script>

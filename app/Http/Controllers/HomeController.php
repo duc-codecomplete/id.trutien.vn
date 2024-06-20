@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Shop;
-use App\Models\Transaction;
 use App\Models\Giftcode;
 use App\Models\GiftcodeUser;
+use App\Models\Shop;
+use App\Models\Transaction;
+use App\Models\User;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -109,7 +110,19 @@ class HomeController extends Controller
     public function getShop()
     {
         $shops = Shop::where("status", "active")->get();
-        return view("shop", ["shops" => $shops]);
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $userid = \Auth::user()->userid;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('get', $gameApi . '/html/char.php');
+        $content = json_decode($response->getBody()->getContents(), true);
+        if (($content) == null) {
+            return 1;
+        }
+        $data = $content["data"];
+        $chars = collect($data)->filter(function ($value, $key) use ($userid) {
+            return $value['akkid'] == $userid;
+        });
+        return view("shop", ["shops" => $shops, "chars" => $chars]);
     }
 
     public function postShop(Request $request)
@@ -137,11 +150,22 @@ class HomeController extends Controller
         return back();
     }
 
-
     public function getGiftcode()
     {
         $giftcodes = Giftcode::all();
-        return view("giftcodes", ["giftcodes" => $giftcodes]);
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $userid = \Auth::user()->userid;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('get', $gameApi . '/html/char.php');
+        $content = json_decode($response->getBody()->getContents(), true);
+        if (($content) == null) {
+            return 1;
+        }
+        $data = $content["data"];
+        $chars = collect($data)->filter(function ($value, $key) use ($userid) {
+            return $value['akkid'] == $userid;
+        });
+        return view("giftcodes", ["giftcodes" => $giftcodes, "chars" => $chars]);
     }
 
     public function setMainChar()
@@ -149,22 +173,49 @@ class HomeController extends Controller
         $user = Auth::user();
         $user->main_id = request()->main_id;
         $user->save();
-        return redirect("/shops");
+        return back();
     }
 
     public function useGiftcode(Request $request, $id)
     {
         $user = Auth::user();
+        if (!$user->main_id) {
+            return back()->with("error", "Vui lòng vào game tạo nhân vật!!");
+        }
         $userGiftcode = GiftcodeUser::where(["user_id" => $user->id, "giftcode_id" => $id])->first();
         if ($userGiftcode) {
             return redirect()->back()->with('error', 'Bạn đã dùng giftcode này!');
         }
-        $item = new GiftcodeUser;
-        $item->user_id = $user->id;
-        $item->giftcode_id = $id;
+        try {
+            DB::beginTransaction();
+            $code = Giftcode::find($id);
+            $use = new GiftcodeUser;
+            $use->user_id = $user->id;
+            $use->giftcode_id = $id;
+            $use->save();
+            $code->count = $code->count + 1;
+            $code->save();
+            $client = new \GuzzleHttp\Client();
+            $gameApi = env('GAME_API_ENDPOINT', '');
+            $client->request('POST', $gameApi . '/html/send2.php', ["form_params" => [
+                "receiver" => $user->main_id,
+                "itemid" => $code->itemid,
+                "count" => $code->quantity,
+            ]]);
+            return back()->with("success", "Sử dụng giftcode thành công, vui lòng check tín sứ!");
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+            return back()->with("error", "Có lỗi xảy ra, vui lòng liên hệ GM!");
+        }
+    }
 
-        $item->save();
-
-        return back()->with('success', 'Bạn đã dùng giftcode thành công!');
+    public function updateChar()
+    {
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('get', $gameApi . '/html/char_update.php');
+        $content = json_decode($response->getBody()->getContents(), true);
+        return redirect("/shops");
     }
 }

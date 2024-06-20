@@ -25,6 +25,7 @@ Route::post('/dang-nhap', [HomeController::class, 'signinPost']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home'])->name("home");
+	Route::get('/update_char', [HomeController::class, 'updateChar'])->name("update_char");
 	Route::post('/set_main_char', [HomeController::class, 'setMainChar']);
     Route::get('/logout', function() {
 		Auth::logout();
