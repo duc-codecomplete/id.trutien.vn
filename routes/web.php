@@ -46,6 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/doi-mat-khau', [HomeController::class, 'getPassword'])->name("password");
 	Route::post('/doi-mat-khau', [HomeController::class, 'postPassword']);
+
+	Route::get('/online', [HomeController::class, 'online'])->name("online");
+	Route::get('/lich-su-mua', [HomeController::class, 'shopHistory'])->name("shopHistory");
+	Route::get('/vip', [HomeController::class, 'vip'])->name("vip");
 });
 
 

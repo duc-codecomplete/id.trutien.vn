@@ -18,7 +18,14 @@ class HomeController extends Controller
     public function home()
     {
         $user = Auth::user();
-        return view('home', ["user" => $user]);
+        $shops = Transaction::where("type", "shop")->latest()->limit(10)->get();
+        return view('home', ["user" => $user, "shops" => $shops]);
+    }
+
+    public function shopHistory()
+    {
+        $shops = Transaction::where("type", "shop")->latest()->get();
+        return view('histories', ["shops" => $shops]);
     }
 
     public function signup()
@@ -137,7 +144,7 @@ class HomeController extends Controller
         $transaction->type = "shop";
         $transaction->char_id = $user->main_id;
         $transaction->save();
-        return back();
+        return back()->with('success', 'Đã mua thành công!');;
     }
 
     public function getGiftcode()
@@ -224,7 +231,17 @@ class HomeController extends Controller
     public function updateCharApi()
     {
         $data = $this->charUpdate();
+        $this->setOnline();
         return response()->json($data);
+    }
+
+
+    private function setOnline() {
+        $response = $this->callGameApi("get", "/html/online1.php", []);
+        $data = $response["data"];
+        $onlines = collect($data)->pluck('uid')->all();
+        User::whereIn('userid', $onlines)->update(['is_online'=>true]);
+        User::whereNotIn('userid', $onlines)->update(['is_online'=>false]);
     }
 
     public function getKnb()
@@ -300,5 +317,24 @@ class HomeController extends Controller
            return back()->with("success", "Đổi mật khẩu thành công!");
         }
         return back()->with("error", "Mật khẩu hiện tại không đúng!");
+    }
+
+    public function online() {
+
+        $response = $this->callGameApi("get", "/html/online1.php", []);
+        $data = $response["data"];
+        $onlines = collect($data)->pluck('uid')->all();
+        $chars = User::whereIn("userid", $onlines)->get();
+        return $chars;
+    }
+
+    public function vip() {
+        try {
+            $response = $this->callGameApi("get", "/html/vip.php", []);
+            $data = $response["data"];
+            return view("vip", ["vips" => $data]);
+        } catch (\Throwable $th) {
+            return view("vip", ["vips" => []]);
+        }
     }
 }

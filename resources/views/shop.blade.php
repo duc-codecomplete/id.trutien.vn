@@ -3,7 +3,7 @@
 <div class="container-xl">
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">Vật phẩm bày bán</h1> <small style="color:red">*Lưu ý: chọn nhân vật mặc
+            <h1 class="app-page-title mb-0">Vật phẩm bày bán <small style="font-size:14px">(Xem <a href="/lich-su-mua">lịch sử<a/> mua của người chơi)</small></h1> <small style="color:red">*Lưu ý: chọn nhân vật mặc
                 định trước khi mua, nếu chọn sai, chúng tôi sẽ không chịu trách nhiệm</small>
                 <p><small style="">*Nếu không thấy nhân vật, <a href="/update_char">bấm vào đây</a> để cập nhật</small></p>
         </div>
@@ -33,6 +33,12 @@
     </div>
     @endif
     <!--//row-->
+    @if(Session::has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <small>{{ Session::get('success') }}</small>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <div class="row g-4">
         @foreach ($shops as $item)
