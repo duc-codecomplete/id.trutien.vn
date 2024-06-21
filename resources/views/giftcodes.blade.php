@@ -26,15 +26,15 @@
     <form class="row" action="/set_main_char" method="POST">
       @csrf
       <div class="col-4">
-          <select name="main_id" class="form-control">
-              <option value="">---Chọn nhân vật---</option>
-              @foreach ($chars as $item)
-              <option value="{{ $item['id'] }}" @php if ($item["id"] == Auth::user()->main_id) {
-                  echo "selected";
-              } @endphp>{{ $item['id'] }} - {{ $item['name'] }}</option>
-              @endforeach
-          </select>
-      </div>
+        <select name="main_id" class="form-control">
+            <option value="">---Chọn nhân vật---</option>
+            @foreach (Auth::user()->chars() as $item)
+            <option value="{{ $item['char_id'] }}" @php if ($item["char_id"] == Auth::user()->main_id) {
+                echo "selected";
+            } @endphp>{{ $item['char_id'] }} - {{ $item['name'] }}</option>
+            @endforeach
+        </select>
+    </div>
 
       <div class="col-4">
           <button type="submit" class="btn btn-sm btn-danger text-center">Chọn nhân vật</button>

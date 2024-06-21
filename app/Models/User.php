@@ -47,4 +47,8 @@ class User extends Authenticatable
     {
         return "username";
     }
+
+    public function chars() {
+        return Char::where("userid", $this->userid)->get();
+    }
 }

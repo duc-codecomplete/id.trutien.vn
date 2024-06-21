@@ -13,10 +13,10 @@
         <div class="col-4">
             <select name="main_id" class="form-control">
                 <option value="">---Chọn nhân vật---</option>
-                @foreach ($chars as $item)
-                <option value="{{ $item['id'] }}" @php if ($item["id"] == Auth::user()->main_id) {
+                @foreach (Auth::user()->chars() as $item)
+                <option value="{{ $item['char_id'] }}" @php if ($item["char_id"] == Auth::user()->main_id) {
                     echo "selected";
-                } @endphp>{{ $item['id'] }} - {{ $item['name'] }}</option>
+                } @endphp>{{ $item['char_id'] }} - {{ $item['name'] }} </option>
                 @endforeach
             </select>
         </div>

@@ -55,15 +55,12 @@ class HomeController extends Controller
             "passwdConfirm.same" => "Mật khẩu nhập lại không đúng",
         ]);
         sleep(2);
-        $gameApi = env('GAME_API_ENDPOINT', '');
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', $gameApi . '/html/reg.php', ["form_params" => [
+        $content = $this->callGameApi("POST", "/html/reg.php", [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
             "repasswd" => $request->passwd,
             "email" => $request->login . "@gmail.com",
-        ]]);
-        $content = json_decode($response->getBody()->getContents(), true);
+        ]);
         if ($content["success"]) {
             $user = new User;
             $user->name = $request->login;
@@ -111,19 +108,7 @@ class HomeController extends Controller
     public function getShop()
     {
         $shops = Shop::where("status", "active")->get();
-        $gameApi = env('GAME_API_ENDPOINT', '');
-        $userid = \Auth::user()->userid;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('get', $gameApi . '/html/char.php');
-        $content = json_decode($response->getBody()->getContents(), true);
-        if (($content) == null) {
-            return 1;
-        }
-        $data = $content["data"];
-        $chars = collect($data)->filter(function ($value, $key) use ($userid) {
-            return $value['akkid'] == $userid;
-        });
-        return view("shop", ["shops" => $shops, "chars" => $chars]);
+        return view("shop", ["shops" => $shops]);
     }
 
     public function postShop(Request $request)
@@ -158,25 +143,21 @@ class HomeController extends Controller
     public function getGiftcode()
     {
         $giftcodes = Giftcode::all();
-        $gameApi = env('GAME_API_ENDPOINT', '');
-        $userid = \Auth::user()->userid;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('get', $gameApi . '/html/char.php');
-        $content = json_decode($response->getBody()->getContents(), true);
-        if (($content) == null) {
-            return 1;
-        }
-        $data = $content["data"];
-        $chars = collect($data)->filter(function ($value, $key) use ($userid) {
-            return $value['akkid'] == $userid;
-        });
-        return view("giftcodes", ["giftcodes" => $giftcodes, "chars" => $chars]);
+        return view("giftcodes", ["giftcodes" => $giftcodes]);
     }
 
     public function setMainChar()
     {
         $user = Auth::user();
         $user->main_id = request()->main_id;
+        $user->save();
+        return back();
+    }
+
+    public function setMainCharHome($id)
+    {
+        $user = Auth::user();
+        $user->main_id = $id;
         $user->save();
         return back();
     }
@@ -201,13 +182,12 @@ class HomeController extends Controller
             $use->save();
             $code->count = $code->count + 1;
             $code->save();
-            $client = new \GuzzleHttp\Client();
-            $gameApi = env('GAME_API_ENDPOINT', '');
-            $client->request('POST', $gameApi . '/html/send2.php', ["form_params" => [
+
+            $this->callGameApi("post", "/html/send2.php", [
                 "receiver" => $user->main_id,
                 "itemid" => $code->itemid,
                 "count" => $code->quantity,
-            ]]);
+            ]);
             return back()->with("success", "Sử dụng giftcode thành công, vui lòng check tín sứ!");
         } catch (\Exception $e) {
             DB::rollback();
@@ -218,40 +198,40 @@ class HomeController extends Controller
 
     public function updateChar()
     {
-        $gameApi = env('GAME_API_ENDPOINT', '');
+        $this->charUpdate();
+        return back();
+    }
+
+    private function callGameApi($method, $path, $params) {
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('get', $gameApi . '/html/char_update.php');
-        $content = json_decode($response->getBody()->getContents(), true);
-        $chars =[];
-        $data = $content["data"];
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $response = $client->request($method, $gameApi . $path, ["form_params" => $params]);
+        $response = json_decode($response->getBody()->getContents(), true);
+        return $response;
+    }
+
+    private function charUpdate() {
+        $response = $this->callGameApi("get", "/html/char_update.php", []);
+        $data = $response["data"];
+        $chars = [];
         foreach ($data as $user) {
             array_push($chars, [
                 "userid" => $user["akkid"],
                 "char_id" => $user["id"],
-                "name" => $user["name"]
+                "name" => $user["name"],
+                "gender" => $user["gender"] == "1" ? "Nam" : "Nữ",
+                "pk_value" => $user["pkvalue"],
+                "class" => $user["occupation"]
             ]);
         }
-        Char::upsert($chars, ['char_id', 'userid'], ['name']);
-        return back();
+        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class"]);
+        return $data;
     }
 
     public function updateCharApi()
     {
-        $gameApi = env('GAME_API_ENDPOINT', '');
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('get', $gameApi . '/html/char_update.php');
-        $content = json_decode($response->getBody()->getContents(), true);
-        $chars =[];
-        $data = $content["data"];
-        foreach ($data as $user) {
-            array_push($chars, [
-                "userid" => $user["akkid"],
-                "char_id" => $user["id"],
-                "name" => $user["name"]
-            ]);
-        }
-        Char::upsert($chars, ['char_id', 'userid'], ['name']);
-        return response()->json(["message" => "ok"]);
+        $data = $this->charUpdate();
+        return response()->json($data);
     }
 
     public function getKnb()

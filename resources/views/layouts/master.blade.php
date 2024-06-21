@@ -198,7 +198,7 @@
 
   <div class="app-wrapper">
 
-    <div class="app-content pt-3 p-md-3 p-lg-4" style="min-height:100vh">
+    <div class="app-content pt-3 p-md-3 p-lg-4">
       @yield('content')
       <!--//container-fluid-->
     </div>
