@@ -84,7 +84,7 @@
                                         <td class="cell">{{ $item->shop->name }}</td>
                                         <td class="cell">{{ $item->shop_quantity }}</td>
                                         <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
-                                        <td class="cell">{{ $item->char_id }}</td>
+                                        <td class="cell">{{ $item->char_id }} - {{ $item->getCharName() }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

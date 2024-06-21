@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Char;
 
 class Transaction extends Model
 {
@@ -12,5 +13,11 @@ class Transaction extends Model
     public function shop()
     {
         return $this->belongsTo(Shop::class);
+    }
+
+
+    public function getCharName() {
+        $char = Char::where("char_id", $this->char_id)->first();
+        return $char->name;
     }
 }
