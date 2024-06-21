@@ -31,7 +31,7 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
                                 <div class="item-label"><strong>ID</strong></div>
-                                <div class="item-data">HAGL{{ $user->userid }}</div>
+                                <div class="item-data">TT{{ $user->userid }}</div>
                             </div>
                         </div>
                         <!--//row-->
