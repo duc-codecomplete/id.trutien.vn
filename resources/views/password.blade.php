@@ -21,13 +21,13 @@
     <form class="col-6" action="" method="POST">
         @csrf
         <div class="mb-3">
-          <input type="password" class="form-control" name="old" aria-describedby="emailHelp">
+          <input type="password" required class="form-control" name="old">
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control" name="new">
+          <input type="password" required class="form-control" name="new">
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" name="newcf">
+            <input type="password" required class="form-control" name="newcf">
           </div>
         <button type="submit" class="btn btn-primary" style="color:white">Cập nhật</button>
       </form>

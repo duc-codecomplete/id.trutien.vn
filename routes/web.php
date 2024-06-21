@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Middleware\IsAdmin;
 
 /*
@@ -16,18 +17,18 @@ use App\Http\Middleware\IsAdmin;
 |
 */
 
-Route::get('/dang-ky', [HomeController::class, 'signup']);
-Route::get('/dang-nhap', [HomeController::class, 'signin'])->name("login");
+Route::get('/dang-ky', [AuthController::class, 'signup']);
+Route::get('/dang-nhap', [AuthController::class, 'signin'])->name("login");
 
-Route::post('/dang-ky', [HomeController::class, 'signupPost']);
-Route::post('/dang-nhap', [HomeController::class, 'signinPost']);
+Route::post('/dang-ky', [AuthController::class, 'signupPost']);
+Route::post('/dang-nhap', [AuthController::class, 'signinPost']);
 
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'home'])->name("home");
-	Route::get('/update_char', [HomeController::class, 'updateChar'])->name("update_char");
-	Route::post('/set_main_char', [HomeController::class, 'setMainChar']);
-	Route::get('/set_main_char/{id}', [HomeController::class, 'setMainCharHome']);
+	Route::get('/update_char', [AuthController::class, 'updateChar'])->name("update_char");
+	Route::post('/set_main_char', [AuthController::class, 'setMainChar']);
+	Route::get('/set_main_char/{id}', [AuthController::class, 'setMainCharHome']);
     Route::get('/logout', function() {
 		Auth::logout();
 		return redirect("/dang-nhap");
@@ -44,8 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/giftcodes/{id}/using', [HomeController::class, 'useGiftCode']);
 	Route::get('/transactions', [HomeController::class, 'transactions'])->name("transactions");
 
-	Route::get('/doi-mat-khau', [HomeController::class, 'getPassword'])->name("password");
-	Route::post('/doi-mat-khau', [HomeController::class, 'postPassword']);
+	Route::get('/doi-mat-khau', [AuthController::class, 'getPassword'])->name("password");
+	Route::post('/doi-mat-khau', [AuthController::class, 'postPassword']);
 
 	Route::get('/online', [HomeController::class, 'online'])->name("online");
 	Route::get('/lich-su-mua', [HomeController::class, 'shopHistory'])->name("shopHistory");

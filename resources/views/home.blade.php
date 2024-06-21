@@ -72,15 +72,6 @@
                         </div>
                         <!--//row-->
                     </div>
-                    @php
-                        $colors = array("primary", "secondary", "success", "danger", "warning", "info");
-                    @endphp
-                    <hr>
-                    <div class="py-3">
-                        @foreach ($shops as $item)
-                        <p style="font-size: .875rem" class="item-data text-{{$colors[array_rand($colors)]}}">Người chơi {{ $item->getCharName() }}({{ $item->char_id }}) đã mua {{ $item->shop_quantity  }} cái {{ $item->shop->name }} tại shop vật phẩm lúc {{ \Carbon\Carbon::parse($item->created_at)->format("H:i:s d/m/Y") }}</p>
-                        @endforeach
-                    </div>
                 </div>
 
             </div>

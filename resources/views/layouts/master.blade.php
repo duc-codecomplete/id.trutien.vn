@@ -292,7 +292,7 @@
 
   <!-- Page Specific JS -->
   <script src="/assets/new/assets/js/app.js"></script>
-
+  @yield('script')
 </body>
 
 </html>
