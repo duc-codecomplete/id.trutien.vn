@@ -7,6 +7,7 @@ use App\Models\GiftcodeUser;
 use App\Models\Shop;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Char;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -196,6 +197,7 @@ class HomeController extends Controller
             $use = new GiftcodeUser;
             $use->user_id = $user->id;
             $use->giftcode_id = $id;
+            $use->char_id = $user->main_id;
             $use->save();
             $code->count = $code->count + 1;
             $code->save();
@@ -220,7 +222,36 @@ class HomeController extends Controller
         $client = new \GuzzleHttp\Client();
         $response = $client->request('get', $gameApi . '/html/char_update.php');
         $content = json_decode($response->getBody()->getContents(), true);
-        return redirect("/shops");
+        $chars =[];
+        $data = $content["data"];
+        foreach ($data as $user) {
+            array_push($chars, [
+                "userid" => $user["akkid"],
+                "char_id" => $user["id"],
+                "name" => $user["name"]
+            ]);
+        }
+        Char::upsert($chars, ['char_id', 'userid'], ['name']);
+        return back();
+    }
+
+    public function updateCharApi()
+    {
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('get', $gameApi . '/html/char_update.php');
+        $content = json_decode($response->getBody()->getContents(), true);
+        $chars =[];
+        $data = $content["data"];
+        foreach ($data as $user) {
+            array_push($chars, [
+                "userid" => $user["akkid"],
+                "char_id" => $user["id"],
+                "name" => $user["name"]
+            ]);
+        }
+        Char::upsert($chars, ['char_id', 'userid'], ['name']);
+        return response()->json(["message" => "ok"]);
     }
 
     public function getKnb()
