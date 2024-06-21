@@ -58,7 +58,7 @@
                         </div>
                         <!--//row-->
                     </div>
-                    <div class="item border-bottom py-3">
+                    <div class="item py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
                                 <div class="item-label"><strong>Mật khẩu</strong></div>
@@ -66,30 +66,12 @@
                             </div>
                             <!--//col-->
                             <div class="col text-end">
-                                <a class="btn btn-sm btn-primary" href="#">Thay đổi</a>
+                                <a class="btn btn-sm btn-danger" href="/doi-mat-khau" style="color:white">Thay đổi</a>
                             </div>
                             <!--//col-->
                         </div>
                         <!--//row-->
                     </div>
-                    <!--//item-->
-                    <div class="item py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="item-label"><strong>Số xu hiện có</strong></div>
-                                <div class="item-data">
-                                    {{ $user->balance }}
-                                </div>
-                            </div>
-                            <!--//col-->
-                            <div class="col text-end">
-                                <a class="btn btn-sm btn-primary" href="#">Nạp xu</a>
-                            </div>
-                            <!--//col-->
-                        </div>
-                        <!--//row-->
-                    </div>
-                    <!--//item-->
                 </div>
 
             </div>

@@ -202,13 +202,6 @@ class HomeController extends Controller
         return back();
     }
 
-    private function callGameApi($method, $path, $params) {
-        $client = new \GuzzleHttp\Client();
-        $gameApi = env('GAME_API_ENDPOINT', '');
-        $response = $client->request($method, $gameApi . $path, ["form_params" => $params]);
-        $response = json_decode($response->getBody()->getContents(), true);
-        return $response;
-    }
 
     private function charUpdate() {
         $response = $this->callGameApi("get", "/html/char_update.php", []);
@@ -276,5 +269,36 @@ class HomeController extends Controller
         $shops = Transaction::where("type", "shop")->latest()->get();
         $knbs = Transaction::where("type", "knb")->latest()->get();
         return view("transactions", ["shops" => $shops, "knbs" => $knbs]);
+    }
+
+    public function getPassword() {
+        return view("password");
+    }
+
+    public function postPassword(Request $request) {
+        $validated = $request->validate([
+            'old' => 'bail|required',
+            'new' => 'bail|required|min:4|max:10|alpha_num',
+            'newcf' => 'bail|required|same:new',
+        ], [
+            "new.min" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
+            "new.max" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
+            "new.alpha_num" => "Mật khẩu chỉ được chứa chữ và số",
+            "newcf.same" => "Mật khẩu xác thực không giống nhau"
+        ]);
+        $user = \Auth::user();
+        if ($request->old == $user->password2) {
+           $user->password2 = $request->new;
+           $user->password = \Hash::make($request->new);
+           $user->change_pass = $user->change_pass + 1;
+           $user->save();
+           $client = new \GuzzleHttp\Client();
+           $client->request('POST', 'http://103.56.162.119/html/passwdapi.php', ["form_params" => [
+                "login" => $user->username,
+                "passwd" => $request->new
+            ]]);
+           return back()->with("success", "Đổi mật khẩu thành công!");
+        }
+        return back()->with("error", "Mật khẩu hiện tại không đúng!");
     }
 }
