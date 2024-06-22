@@ -121,7 +121,7 @@ class AuthController extends Controller
                 "userid" => $user["akkid"],
                 "char_id" => $user["id"],
                 "name" => $user["name"],
-                "gender" => $user["gender"] == "1" ? "Nam" : "Nữ",
+                "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
                 "pk_value" => $user["pkvalue"],
                 "class" => $user["occupation"]
             ]);

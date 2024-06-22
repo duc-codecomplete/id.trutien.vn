@@ -18,7 +18,7 @@
                 @foreach (Auth::user()->chars() as $item)
                 <option value="{{ $item['char_id'] }}" @php if ($item["char_id"]==Auth::user()->main_id) {
                     echo "selected";
-                    } @endphp>{{ $item['char_id'] }} - {{ $item['name'] }} </option>
+                    } @endphp>{{ $item['char_id'] }} - {{ $item['name'] }} - {{ $item->getClass() }} </option>
                 @endforeach
             </select>
         </div>

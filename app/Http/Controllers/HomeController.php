@@ -60,17 +60,29 @@ class HomeController extends Controller
         if ($balance < $cash) {
             return redirect()->back()->with('error', 'Số xu trong tài khoản không đủ (cần ' . $cash . ' xu, thiếu ' . $cash - $balance . ' xu), vui lòng nạp thêm.');
         }
-        $user->balance = $balance - $cash;
-        $user->save();
+        try {
+            DB::beginTransaction();
+            $this->callGameApi("post", "/html/send2.php", [
+                "receiver" => $user->main_id,
+                "itemid" => $shop->itemid,
+                "count" => $request->quantity,
+            ]);
+            $user->balance = $balance - $cash;
+            $user->save();
 
-        $transaction = new Transaction;
-        $transaction->user_id = $user->id;
-        $transaction->shop_quantity = $request->quantity;
-        $transaction->shop_id = $request->shop_id;
-        $transaction->type = "shop";
-        $transaction->char_id = $user->main_id;
-        $transaction->save();
-        return back()->with('success', 'Chúc mừng bạn đã mua thành công '.$request->quantity.' cái '.$shop->name.' với giá '. $cash. ' (xu)');;
+            $transaction = new Transaction;
+            $transaction->user_id = $user->id;
+            $transaction->shop_quantity = $request->quantity;
+            $transaction->shop_id = $request->shop_id;
+            $transaction->type = "shop";
+            $transaction->char_id = $user->main_id;
+            $transaction->save();
+            DB::commit();
+            return back()->with('success', 'Chúc mừng bạn đã mua thành công '.$request->quantity.' cái '.$shop->name.' với giá '. $cash. ' (xu)');
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with("error", "Có lỗi xảy ra, vui lòng liên hệ GM!");
+        }
     }
 
     public function getGiftcode()
@@ -105,10 +117,10 @@ class HomeController extends Controller
                 "itemid" => $code->itemid,
                 "count" => $code->quantity,
             ]);
+            DB::commit();
             return back()->with("success", "Sử dụng giftcode thành công, vui lòng check tín sứ!");
         } catch (\Exception $e) {
             DB::rollback();
-            throw $e;
             return back()->with("error", "Có lỗi xảy ra, vui lòng liên hệ GM!");
         }
     }
@@ -150,8 +162,8 @@ class HomeController extends Controller
 
     public function transactions()
     {
-        $shops = Transaction::where("type", "shop")->latest()->get();
-        $knbs = Transaction::where("type", "knb")->latest()->get();
+        $shops = Transaction::where("user_id", Auth::user()->id)->where("type", "shop")->latest()->get();
+        $knbs = Transaction::where("user_id", Auth::user()->id)->where("type", "knb")->latest()->get();
         return view("transactions", ["shops" => $shops, "knbs" => $knbs]);
     }
 
