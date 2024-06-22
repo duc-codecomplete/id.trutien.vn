@@ -121,10 +121,13 @@
                             <p class="card-text char"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8M3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5"/>
                               </svg> Giới tính: {{ $item->gender }}</p>
-                            <p class="card-text char"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            {{-- <p class="card-text char"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                               </svg> Điểm PK: <span style="color: {{$item->pk_value > 0 ? 'red' : ''}}">{{ ceil($item->pk_value/7176) }}</span></p>
+                            <br> --}}
                             <br>
+                            <a href="/doi-mon-phai/{{$item->char_id}}" class="btn btn-sm btn-danger" style="color:white">Đổi môn phái</a>
+
                             @if(Auth::user()->main_id != $item->char_id)
                             <a href="/set_main_char/{{$item->char_id}}" class="btn btn-sm btn-success" style="color:white">Đặt làm nhân vật chính</a>
                             @endif

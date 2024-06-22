@@ -35,6 +35,10 @@
    50% { opacity: 1 }
    100% { opacity: 0 }
    }
+
+   .btn {
+    color: white !important;
+  }
   </style>
 </head>
 

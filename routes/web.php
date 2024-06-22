@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/update_char', [AuthController::class, 'updateChar'])->name("update_char");
 	Route::post('/set_main_char', [AuthController::class, 'setMainChar']);
 	Route::get('/set_main_char/{id}', [AuthController::class, 'setMainCharHome']);
+	Route::get('/doi-mon-phai/{id}', [AuthController::class, 'changeClassGet']);
+	Route::post('/doi-mon-phai/{id}', [AuthController::class, 'changeClassPost']);
     Route::get('/logout', function() {
 		Auth::logout();
 		return redirect("/dang-nhap");

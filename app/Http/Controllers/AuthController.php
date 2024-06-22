@@ -182,4 +182,28 @@ class AuthController extends Controller
         }
         return back()->with("error", "Mật khẩu hiện tại không đúng!");
     }
+
+    public function changeClassGet($id) {
+        $char = Char::where("char_id", $id)->first();
+        return view("class", ["char" => $char]);
+    }
+
+    public function changeClassPost($id) {
+        if (request()->class < 100) {
+            return back()->with("error", "Vui lòng chọn môn phái!");
+        }
+        $user = Auth::user();
+        if ($user->balance < 100) {
+            return back()->with("error", "Số xu trong tài khoản không đủ!");
+        }
+        $char = Char::where("char_id", $id)->first();
+        $this->callGameApi("post", "/html/send2.php", [
+            "receiver" => $id,
+            "itemid" => request()->class,
+            "count" => 1,
+        ]);
+        $user->balance = intval($user->balance) - 100;
+        $user->save();
+        return back()->with("success", "Yêu cầu thành công!");;
+    }
 }
