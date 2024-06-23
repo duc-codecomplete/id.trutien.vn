@@ -14652,21 +14652,21 @@ button.close:focus {
 }
 
 .app-login .auth-background-holder {
-    background: url("/assets/bg.jpg") no-repeat center center;
+    background: url("/assets/rolem.png") no-repeat center center;
     background-size: cover;
     height: 100vh;
     min-height: 100%
 }
 
 .app-signup .auth-background-holder {
-    background: url("/assets/bg.jpg") no-repeat center center;
+    background: url("/assets/rolem.png") no-repeat center center;
     background-size: cover;
     height: 100vh;
     min-height: 100%
 }
 
 .app-reset-password .auth-background-holder {
-    background: url("/assets/bg.jpg") no-repeat center center;
+    background: url("/assets/rolem.png") no-repeat center center;
     background-size: cover;
     height: 100vh;
     min-height: 100%
