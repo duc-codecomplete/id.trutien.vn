@@ -50,6 +50,7 @@
                 <th scope="col">Giftcode</th>
                 <th scope="col">Phần thưởng</th>
                 <th scope="col">Ngày hết hạn</th>
+                <th scope="col">Lượt dùng</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -59,6 +60,7 @@
                 <td>{{ $item->giftcode }}</td>
                 <td>{{ $item->award }}</td>
                 <td>{{\Carbon\Carbon::parse($item->expired)->format("d/m/Y")}}</td>
+                <td>{{ $item->count }}</td>
                 <td>
                     @if ($item->beUsedByUser(Auth::user()->id))
                     <button class="btn btn-success" disabled>Đã sử dụng</button>
