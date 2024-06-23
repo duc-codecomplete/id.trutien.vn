@@ -18,6 +18,6 @@ class Transaction extends Model
 
     public function getCharName() {
         $char = Char::where("char_id", $this->char_id)->first();
-        return $char->name;
+        return $char->name2 ?? $char->name;
     }
 }

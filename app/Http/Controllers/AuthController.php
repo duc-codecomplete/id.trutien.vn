@@ -124,10 +124,11 @@ class AuthController extends Controller
                 "gender" => $user["gender"] == "0" ? "Nam" : "Nữ",
                 "pk_value" => $user["pkvalue"],
                 "class" => $user["occupation"],
-                "level" => $user["level"]
+                "level" => $user["level"],
+                "reputation" => $user["reputation"]
             ]);
         }
-        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level"]);
+        Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
         return $data;
     }
 

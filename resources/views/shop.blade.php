@@ -59,7 +59,6 @@
                             <li><span class="">Đã bán:</span> {{ $item->getSell() }}</li>
                         </ul>
                     </div>
-                    <br>
                 </div>
                 <form class="row p-4" action="" method="POST">
                     @csrf

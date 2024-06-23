@@ -141,6 +141,10 @@ class Char extends Model
         return url('') . "/assets/new/" . $item["img"];
     }
 
+    public function getName() {
+        return $this->name2 ?? $this->name;
+    }
+
 }
 
 
