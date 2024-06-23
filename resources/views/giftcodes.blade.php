@@ -26,12 +26,12 @@
     <form class="row" action="/set_main_char" method="POST">
       @csrf
       <div class="col-4">
-        <select name="main_id" class="form-control">
+        <select name="main_id" class="form-control" style="padding-top: 0;padding-bottom: 0;">
             <option value="">---Chọn nhân vật---</option>
             @foreach (Auth::user()->chars() as $item)
             <option value="{{ $item['char_id'] }}" @php if ($item["char_id"] == Auth::user()->main_id) {
                 echo "selected";
-            } @endphp>{{ $item['char_id'] }} - {{ $item['name'] }} - {{ $item->getClass() }}</option>
+            } @endphp>{{ $item['char_id'] }} - {{ $item->getName() }} - {{ $item->getClass() }}</option>
             @endforeach
         </select>
     </div>

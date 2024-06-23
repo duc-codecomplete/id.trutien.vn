@@ -23,7 +23,7 @@
             @foreach ($vips as $item)
               @if(getAcc($item["userid"]))
               <tr>
-                <td>{{ getAcc($item["userid"]) }}</td>
+                <td><strong style="color:blue">{{ getChar($item["userid"]) }}</strong> ({{ getAcc($item["userid"]) }})</td>
                 <td>{{ $item["viplevel"] }}</td>
                 <td>{{\Carbon\Carbon::parse($item["endtime"])->format("d/m/Y")}}</td>
                 <td>

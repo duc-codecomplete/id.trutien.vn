@@ -51,4 +51,12 @@ class User extends Authenticatable
     public function chars() {
         return Char::where("userid", $this->userid)->get();
     }
+
+    public function char() {
+        return $this->belongsTo(Char::class, "main_id", "char_id");
+    }
+
+    public function getMain() {
+        return $this->char ? $this->char->getName() : "Chưa tạo nhân vật";
+    }
 }
