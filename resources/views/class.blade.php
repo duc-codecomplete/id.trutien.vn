@@ -3,7 +3,7 @@
 <div class="container-xl">
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">Chuyển đổi môn phái nhân vật {{ $char->name}} ({{ $char->char_id}})</h1>
+            <h1 class="app-page-title mb-0">Chuyển đổi môn phái nhân vật {{ $char->getName() }} ({{ $char->char_id}})</h1>
             <small style="color:red">*Môn phái hiện tại: {{ $char->getClass() }}</small>
             <p><small>*Tỉ lệ: 100 xu = 1 lần đổi môn phái</small></p>
                 <p><small style="">*Vào game check tín sứ nhận vật phẩm đổi môn phái.</p>
