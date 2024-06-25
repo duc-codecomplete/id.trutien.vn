@@ -188,4 +188,15 @@ class HomeController extends Controller
             return view("vip", ["vips" => []]);
         }
     }
+
+    public function chat()
+    {
+        try {
+            $response = $this->callGameApi("get", "/ch.php", []);
+            $data = $response["data"];
+            return view("chat", ["chat" => $data]);
+        } catch (\Throwable $th) {
+            return view("chat", ["chat" => []]);
+        }
+    }
 }

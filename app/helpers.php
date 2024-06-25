@@ -19,3 +19,8 @@ function getChar($userid) {
     return "Chưa tạo nhân vật";
   }
 }
+
+function getName($char) {
+  $char = \App\Models\Char::where("char_id", $char)->first();
+  return $char ? $char->getName() : "Chưa cập nhật";
+}
