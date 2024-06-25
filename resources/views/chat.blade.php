@@ -1,7 +1,4 @@
 @extends('layouts.master')
-@push('meta')
-    <meta http-equiv="refresh" content="5">
-@endpush
 @section('content')
 <style>
     .rounded {
@@ -31,37 +28,26 @@
 <div class="container-fluid p-0">
 
     <div class="mb-3">
-        <h1 class="h3 d-inline align-middle">Server Chat Logs</h1><a class="badge bg-primary ms-2" href="#"
-            target="_blank">Pro Component <i class="fas fa-fw fa-external-link-alt"></i></a>
+        <h1 class="h3 d-inline align-middle">Trò chuyện kênh thế giới</h1><a class="badge bg-primary ms-2" href="https://trutien.vn/tai-game"
+            target="_blank">Tham gia game ngay <i class="fas fa-fw fa-external-link-alt"></i></a>
     </div>
 
     <div class="card">
         <div class="row g-0">
             <div class="col-12 col-lg-12 col-xl-12">
-                {{-- <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                <div class="py-2 px-4 border-bottom d-none d-lg-block">
                     <div class="d-flex align-items-center py-1">
                         <div class="flex-grow-1 ps-3">
-                            <strong>GM</strong>
+                            <strong>Mọi người đang nói gì với nhau</strong>
                         </div>
-                        <div>
-                            <button class="btn btn-primary btn-lg me-1 px-3"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-phone feather-lg">
-                                    <path
-                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                    </path>
-                                </svg></button>
-                            <button class="btn btn-info btn-lg me-1 px-3 d-none d-md-inline-block"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-video feather-lg">
-                                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-                                </svg></button>
-                        </div>
+                        <a href="/chat">
+                            <button class="btn btn-secondary btn-lg me-1 px-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                              </svg>Refresh</button>
+                        </a>
                     </div>
-                </div> --}}
+                </div>
                 {{-- <div class="flex-grow-0 py-3 px-4 border-top">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Type your message" readonly>
