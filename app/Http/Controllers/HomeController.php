@@ -214,8 +214,11 @@ class HomeController extends Controller
             $trans->status = "success";
             $trans->processing_time = $processing_time;
             $trans->bank = $bank;
-            $trans->account_number = $request->account_number;
+            $trans->account_number = $request->accountNumber;
             $trans->save();
+
+            $user->balance = $amount / 1000;
+            $user->save();
 
             return response()->json("ok", 200);
         } catch (\Throwable $th) {
