@@ -27,7 +27,7 @@
                     <th class="cell">Khuyến mãi</th>
                     <th class="cell">Xu nhận được</th>
                     <th class="cell">KNB nhận được</th>
-                    <th class="cell">Ngày đổi</th>
+                    <th class="cell">Thời gian</th>
                 </tr>
             </thead>
             <tbody>
