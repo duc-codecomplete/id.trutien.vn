@@ -210,6 +210,7 @@ class HomeController extends Controller
 
             $trans = new Deposit;
             $trans->user_id = $user->id ?? null;
+            $trans->sepay_tran_id = $request->id;
             $trans->amount = $amount;
             $trans->status = "success";
             $trans->processing_time = $processing_time;
