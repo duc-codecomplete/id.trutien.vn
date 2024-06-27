@@ -25,27 +25,27 @@
         </div>
         @endif
         <div class="auth-form-container text-start mx-auto">
-            <form class="auth-form auth-signup-form" action="" method="POST">
+            <form class="auth-form auth-signup-form" action="" method="POST" autocomplete="false">
                 @csrf
                 <div class="email mb-3">
                     <label class="sr-only" for="signup-email">Tên đăng nhập</label>
                     <input value="{{ old('login') }}" id="signup-name" name="login" type="text"
-                        class="form-control signup-name" placeholder="Tên đăng nhập" requireds="requireds">
+                        class="form-control signup-name" placeholder="Tên đăng nhập" required autocomplete="false">
                 </div>
                 <div class="email mb-3">
                     <label class="sr-only" for="signup-email">Mật khẩu</label>
                     <input id="signup-email" name="passwd" type="password" class="form-control signup-email"
-                        placeholder="Mật khẩu" requireds="requireds">
+                        placeholder="Mật khẩu" required autocomplete="false">
                 </div>
                 <div class="password mb-3">
                     <label class="sr-only" for="signup-password">Nhập lại mật khẩu</label>
                     <input id="signup-password" name="passwdConfirm" type="password"
-                        class="form-control signup-password" placeholder="Nhập lại mật khẩu" requireds="requireds">
+                        class="form-control signup-password" placeholder="Nhập lại mật khẩu" required>
                 </div>
                 <div class="email mb-3">
                     <label class="sr-only" for="signup-email">Email</label>
                     <input value="{{ old('email') }}" id="signup-name" name="email" type="email"
-                        class="form-control signup-name" placeholder="Địa chỉ email" requireds="requireds">
+                        class="form-control signup-name" placeholder="Địa chỉ email" required>
                 </div>
                 <!--//extra-->
 

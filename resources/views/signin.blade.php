@@ -17,13 +17,13 @@
                 <div class="email mb-3">
                     <label class="sr-only" for="signin-email">Email</label>
                     <input id="signin-email" name="login" class="form-control signin-email"
-                        placeholder="Tên đăng nhập" required="required">
+                        placeholder="Tên đăng nhập" required">
                 </div>
                 <!--//form-group-->
                 <div class="password mb-3">
                     <label class="sr-only" for="signin-password">Password</label>
                     <input id="signin-password" name="password" type="password"
-                        class="form-control signin-password" placeholder="Mật khẩu" required="required">
+                        class="form-control signin-password" placeholder="Mật khẩu" required">
                     <div class="extra mt-3 row justify-content-between">
                         <div class="col-6">
                         </div>
