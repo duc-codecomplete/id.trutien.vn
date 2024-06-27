@@ -131,7 +131,7 @@
             <!--//nav-item-->
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " payment" ? 'active' : '' }}" href="/payment">
+              <a class="nav-link {{ $currentRoute == "payment" ? 'active' : '' }}" href="/nap-tien">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin"
                     viewBox="0 0 16 16">
@@ -161,7 +161,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " knb" ? 'active' : '' }}" href="/knb">
+              <a class="nav-link {{ $currentRoute == "knb" ? 'active' : '' }}" href="/knb">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-credit-card-fill" viewBox="0 0 16 16">
@@ -175,7 +175,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " transactions" ? 'active' : '' }}" href="/transactions">
+              <a class="nav-link {{ $currentRoute == "transactions" ? 'active' : '' }}" href="/transactions">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-currency-dollar" viewBox="0 0 16 16">
@@ -189,7 +189,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " shops" ? 'active' : '' }}" href="/shops">
+              <a class="nav-link {{ $currentRoute == "shops" ? 'active' : '' }}" href="/shops">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-cart-check" viewBox="0 0 16 16">
