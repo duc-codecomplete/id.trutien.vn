@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deposit;
 use App\Models\Giftcode;
 use App\Models\GiftcodeUser;
 use App\Models\Shop;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Char;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -27,7 +27,6 @@ class HomeController extends Controller
         $shops = Transaction::where("type", "shop")->latest()->get();
         return view('histories', ["shops" => $shops]);
     }
-
 
     public function getNapTien()
     {
@@ -78,7 +77,7 @@ class HomeController extends Controller
             $transaction->char_id = $user->main_id;
             $transaction->save();
             DB::commit();
-            return back()->with('success', 'Chúc mừng bạn đã mua thành công '.$request->quantity.' cái '.$shop->name.' với giá '. $cash. ' (xu)');
+            return back()->with('success', 'Chúc mừng bạn đã mua thành công ' . $request->quantity . ' cái ' . $shop->name . ' với giá ' . $cash . ' (xu)');
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with("error", "Có lỗi xảy ra, vui lòng liên hệ GM!");
@@ -167,7 +166,6 @@ class HomeController extends Controller
         return view("transactions", ["shops" => $shops, "knbs" => $knbs]);
     }
 
-
     public function online()
     {
 
@@ -195,6 +193,31 @@ class HomeController extends Controller
             $response = $this->callGameApi("get", "/ch.php", []);
             $data = $response["data"];
             return view("chat", ["chat" => $data]);
+        } catch (\Throwable $th) {
+            return view("chat", ["chat" => []]);
+        }
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        try {
+            $code = $request->code;
+            $username = strtolower(substr($code, 2));
+            $user = User::where("username", $username)->first();
+            $amount = $request->transferAmount;
+            $processing_time = $request->transactionDate;
+            $bank = $request->gateway;
+
+            $trans = new Deposit;
+            $trans->user_id = $user->id ?? null;
+            $trans->amount = $amount;
+            $trans->status = "success";
+            $trans->processing_time = $processing_time;
+            $trans->bank = $bank;
+            $trans->account_number = $request->account_number;
+            $trans->save();
+
+            return response()->json("ok", 200);
         } catch (\Throwable $th) {
             return view("chat", ["chat" => []]);
         }

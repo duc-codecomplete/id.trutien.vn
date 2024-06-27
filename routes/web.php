@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/lich-su-mua', [HomeController::class, 'shopHistory'])->name("shopHistory");
 	Route::get('/vip', [HomeController::class, 'vip'])->name("vip");
 	Route::get('/chat', [HomeController::class, 'chat'])->name("chat");
+	Route::post('/payment/success', [HomeController::class, 'paymentSuccess'])->name("paymentSuccess");
 });
 
 

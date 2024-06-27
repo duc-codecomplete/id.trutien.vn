@@ -61,7 +61,7 @@
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
                                 <div class="font-weight-bold mb-1">{{getName($item["char"])}}</div>
-                                {{mb_substr($item["mes"], 0, -1)}}
+                                {{$item["mes"]}}
                             </div>
                         </div>
                         @endif
