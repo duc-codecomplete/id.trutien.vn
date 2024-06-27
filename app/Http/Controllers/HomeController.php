@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Deposit;
 use App\Models\Giftcode;
 use App\Models\GiftcodeUser;
+use App\Models\Promotion;
 use App\Models\Shop;
 use App\Models\Transaction;
 use App\Models\User;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
+use \Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,9 @@ class HomeController extends Controller
 
     public function getNapTien()
     {
-        return view("deposit");
+        $now = Carbon::now();
+        $currentPromotion = Promotion::where('start_time', '<=', $now)->where('end_time', '>=', $now)->first();
+        return view("deposit", ["currentPromotion" => $currentPromotion]);
     }
 
     public function getShop()
@@ -134,14 +138,14 @@ class HomeController extends Controller
         $ratio = 3;
         $user = Auth::user();
         $xu = request()->cash;
-        if ($xu < 50 || $xu > $user->balance) {
+        if ($xu < 50000 || $xu > $user->balance) {
             return back()->with("error", "Số xu nạp phải lớn hơn 50 và nhỏ hơn số dư xu hiện có!");
         }
         try {
             DB::beginTransaction();
             $this->callGameApi("POST", "/html/knb.php", [
                 "userid" => $user->userid,
-                "cash" => intval($xu) * $ratio * 100,
+                "cash" => intval($xu/10) * $ratio,
             ]);
             $user->balance = intval($user->balance) - $xu;
             $user->save();
@@ -151,7 +155,7 @@ class HomeController extends Controller
             $transaction->knb_amount = $xu;
             $transaction->type = "knb";
             $transaction->save();
-            return back()->with("success", "Đã chuyển " . intval($xu) * $ratio . " KNB vào game thành công!");
+            return back()->with("success", "Đã chuyển " . intval($xu/1000) * $ratio . " KNB vào game thành công!");
         } catch (\Throwable $th) {
             throw $th;
             DB::rollback();
@@ -205,6 +209,7 @@ class HomeController extends Controller
             $username = strtolower(substr($code, 2));
             $user = User::where("username", $username)->first();
             $amount = $request->transferAmount;
+            $amount_promotion = $amount;
             $processing_time = $request->transactionDate;
             $bank = $request->gateway;
 
@@ -216,9 +221,18 @@ class HomeController extends Controller
             $trans->processing_time = $processing_time;
             $trans->bank = $bank;
             $trans->account_number = $request->accountNumber;
-            $trans->save();
 
-            $user->balance = $amount / 1000;
+            $currentPromotion = $this->getCurrentPromotion();
+            if ($currentPromotion) {
+                if ($currentPromotion->type == "double") {
+                    $amount_promotion = $amount_promotion * $currentPromotion->amount;
+                } else {
+                    $amount_promotion = $amount_promotion + $amount_promotion * $currentPromotion->amount / 100;
+                }
+            }
+            $trans->amount_promotion = $amount_promotion;
+            $user->balance = $amount_promotion;
+            $trans->save();
             $user->save();
 
             return response()->json("ok", 200);
@@ -231,5 +245,12 @@ class HomeController extends Controller
     {
         $histories = Deposit::where("user_id", Auth::user()->id)->latest()->get();
         return view("deposit_history", ["histories" => $histories]);
+    }
+
+    private function getCurrentPromotion()
+    {
+        $now = Carbon::now();
+        $currentPromotion = Promotion::where('start_time', '<=', $now)->where('end_time', '>=', $now)->first();
+        return $currentPromotion;
     }
 }

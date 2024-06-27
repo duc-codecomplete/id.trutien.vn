@@ -14,6 +14,9 @@
             <img width="300" src="https://img.vietqr.io/image/mbbank-0975832648-compact2.jpg?addInfo=TT{{strtoupper(Auth::user()->username)}}&accountName=Tru%20Tien%20Viet%20Nam" alt="">
         </div>
         <br>
+        <strong style="color:green">*Tỉ lệ: 1000đ = 1000 (xu) khi không có khuyến mãi</strong>
+        <br>
+        <strong style="color:blue">Khuyến mãi hiện tại: {{$currentPromotion->type == "double" ? "x".$currentPromotion->amount : $currentPromotion->amount."%" }}</strong>
     </div>
 </div>
 
