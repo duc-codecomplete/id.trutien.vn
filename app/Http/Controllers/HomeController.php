@@ -225,4 +225,10 @@ class HomeController extends Controller
             return view("chat", ["chat" => []]);
         }
     }
+
+    public function histories()
+    {
+        $histories = Deposit::where("user_id", Auth::user()->id)->latest()->get();
+        return view("deposit_history", ["histories" => $histories]);
+    }
 }

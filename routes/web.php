@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/knb', [HomeController::class, 'postKnb']);
 
     Route::get('/nap-tien', [HomeController::class, 'getNapTien'])->name("payment");
+    Route::get('/lich-su-nap-tien', [HomeController::class, 'histories'])->name("histories");
     Route::get('/shops', [HomeController::class, 'getShop'])->name("shops");
     Route::post('/shops', [HomeController::class, 'postShop']);
 
