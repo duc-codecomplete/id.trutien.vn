@@ -34,7 +34,8 @@ class HomeController extends Controller
     {
         $now = Carbon::now();
         $currentPromotion = Promotion::where('start_time', '<=', $now)->where('end_time', '>=', $now)->first();
-        return view("deposit", ["currentPromotion" => $currentPromotion]);
+        $img = "https://img.vietqr.io/image/mbbank-0975832648-compact2.jpg?addInfo=TT" . strtoupper(Auth::user()->username) . "&accountName=Tru%20Tien%20Viet%20Nam";
+        return view("deposit", ["currentPromotion" => $currentPromotion, "img" => $img]);
     }
 
     public function getShop()
@@ -139,7 +140,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $xu = request()->cash;
         if ($xu < 50000 || $xu > $user->balance) {
-            return back()->with("error", "Số xu nạp phải lớn hơn 50 và nhỏ hơn số dư xu hiện có!");
+            return back()->with("error", "Số xu nạp phải lớn hơn 50000 và nhỏ hơn số dư xu hiện có!");
         }
         try {
             DB::beginTransaction();

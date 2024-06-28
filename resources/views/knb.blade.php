@@ -23,7 +23,7 @@
     <form class="row" action="" method="POST">
         @csrf
         <div class="col-4">
-            <input min="50" name="cash" required class="form-control" type="number" max="{{ Auth::user()->balance}}"
+            <input min="50000" name="cash" required class="form-control" type="number" max="{{ Auth::user()->balance}}"
                 oninvalid="this.setCustomValidity('Số xu nạp phải nhỏ hơn hoặc bằng số dư hiện có')"
                 oninput="this.setCustomValidity('')">
         </div>

@@ -24,9 +24,8 @@
                 <tr>
                     <th class="cell">#</th>
                     <th class="cell">Số tiền</th>
-                    <th class="cell">Khuyến mãi</th>
                     <th class="cell">Xu nhận được</th>
-                    <th class="cell">KNB nhận được</th>
+                    <th class="cell">Xu thực nhận (sau KM)</th>
                     <th class="cell">Thời gian</th>
                 </tr>
             </thead>
@@ -35,9 +34,8 @@
                 <tr>
                     <td class="cell">{{ $loop->index + 1 }}</td>
                     <td class="cell">{{ number_format($item->amount) }}đ</td>
-                    <td class="cell">0%</td>
-                    <td class="cell">{{ $item->amount / 1000 }}</td>
-                    <td class="cell">{{ $item->knb_amount * 3 }}</td>
+                    <td class="cell">{{ $item->amount }}</td>
+                    <td class="cell">{{ $item->amount_promotion }}</td>
                     <td class="cell">{{ \Carbon\Carbon::parse($item->processing_time)->format("d/m/Y H:i:s") }}</td>
                 </tr>
                 @endforeach
