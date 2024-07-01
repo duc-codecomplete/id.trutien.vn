@@ -60,6 +60,7 @@ class AuthController extends Controller
             $user->password = \Hash::make($request->passwd);
             $user->email_verified_at = date("Y-m-d H:i:s");
             $user->save();
+            $this->sendMessage("Người chơi ". $request->login." vừa đăng ký tài khoản");
             return back()->with("success", "Tạo tài khoản thành công!");
         } else {
             return back()->with("error", "Tên đăng nhập đã tồn tại!");
