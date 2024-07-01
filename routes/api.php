@@ -25,3 +25,4 @@ Route::get('/update_char', [AuthController::class, 'updateCharApi'])->name("upda
 Route::post('/payment/success', [HomeController::class, 'paymentSuccess'])->name("paymentSuccess");
 
 Route::get('/update_name', [AuthController::class, 'updateNameApi'])->name("updateNameApi");
+Route::get('/bot', [AuthController::class, 'bot'])->name("bot");
