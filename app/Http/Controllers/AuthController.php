@@ -231,7 +231,7 @@ class AuthController extends Controller
 
     public function cache()
     {
-        \Artisan::call('cache:clear');
+        \Artisan::call('clear-compiled');
         return "ok";
     }
 
