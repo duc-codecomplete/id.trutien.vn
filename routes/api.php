@@ -26,3 +26,4 @@ Route::post('/payment/success', [HomeController::class, 'paymentSuccess'])->name
 
 Route::get('/update_name', [AuthController::class, 'updateNameApi'])->name("updateNameApi");
 Route::get('/bot', [AuthController::class, 'bot'])->name("bot");
+Route::get('/cache', [AuthController::class, 'cache'])->name("cache");

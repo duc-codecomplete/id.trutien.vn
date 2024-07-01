@@ -229,6 +229,13 @@ class AuthController extends Controller
         return "ok";
     }
 
+    public function cache()
+    {
+        \Artisan::call('cache:clear');
+        return "ok";
+    }
+
+
     private function specialChars($str)
     {
         return preg_match('/[^a-zA-Z0-9\.]/', $str) > 0;
