@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Char;
+use App\Models\User;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -111,8 +111,8 @@ class AuthController extends Controller
         return back();
     }
 
-
-    private function charUpdate() {
+    private function charUpdate()
+    {
         $response = $this->callGameApi("get", "/html/char_update.php", []);
         $data = $response["data"];
         $chars = [];
@@ -125,7 +125,7 @@ class AuthController extends Controller
                 "pk_value" => $user["pkvalue"],
                 "class" => $user["occupation"],
                 "level" => $user["level"],
-                "reputation" => $user["reputation"]
+                "reputation" => $user["reputation"],
             ]);
         }
         Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);
@@ -139,20 +139,22 @@ class AuthController extends Controller
         return response()->json($data);
     }
 
-
-    private function setOnline() {
+    private function setOnline()
+    {
         $response = $this->callGameApi("get", "/html/online1.php", []);
         $data = $response["data"];
-        $onlines = collect($data)->pluck('uid')->all();
-        User::whereIn('userid', $onlines)->update(['is_online'=>true]);
-        User::whereNotIn('userid', $onlines)->update(['is_online'=>false]);
+        $onlines = collect($data)->pluck('ID')->all();
+        User::whereIn('userid', $onlines)->update(['is_online' => true]);
+        User::whereNotIn('userid', $onlines)->update(['is_online' => false]);
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return view("password");
     }
 
-    public function postPassword(Request $request) {
+    public function postPassword(Request $request)
+    {
         $validated = $request->validate([
             'old' => 'bail|required',
             'new' => 'bail|required|min:4|max:10|alpha_num',
@@ -161,36 +163,38 @@ class AuthController extends Controller
             "new.min" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
             "new.max" => "Mật khẩu chỉ được chứa từ 3 - 10 kí tự",
             "new.alpha_num" => "Mật khẩu chỉ được chứa chữ và số",
-            "newcf.same" => "Mật khẩu xác thực không giống nhau"
+            "newcf.same" => "Mật khẩu xác thực không giống nhau",
         ]);
         $user = \Auth::user();
         if ($request->old == $user->password2) {
-           try {
-            DB::beginTransaction();
-            $this->callGameApi("POST", "/html/passwdapi.php", [
-                "login" => $user->username,
-                "passwd" => $request->new
-            ]);
-            $user->password2 = $request->new;
-            $user->password = \Hash::make($request->new);
-            $user->change_pass = $user->change_pass + 1;
-            $user->save();
-            DB::commit();
-            return back()->with("success", "Đổi mật khẩu thành công!");
-           } catch (\Throwable $th) {
-            DB::rollback();
-            return back()->with("error", "Đã có lỗi xảy ra, vui lòng liên hệ với GM!");
-           }
+            try {
+                DB::beginTransaction();
+                $this->callGameApi("POST", "/html/passwdapi.php", [
+                    "login" => $user->username,
+                    "passwd" => $request->new,
+                ]);
+                $user->password2 = $request->new;
+                $user->password = \Hash::make($request->new);
+                $user->change_pass = $user->change_pass + 1;
+                $user->save();
+                DB::commit();
+                return back()->with("success", "Đổi mật khẩu thành công!");
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return back()->with("error", "Đã có lỗi xảy ra, vui lòng liên hệ với GM!");
+            }
         }
         return back()->with("error", "Mật khẩu hiện tại không đúng!");
     }
 
-    public function changeClassGet($id) {
+    public function changeClassGet($id)
+    {
         $char = Char::where("char_id", $id)->first();
         return view("class", ["char" => $char]);
     }
 
-    public function changeClassPost($id) {
+    public function changeClassPost($id)
+    {
         if (request()->class < 100) {
             return back()->with("error", "Vui lòng chọn môn phái!");
         }
@@ -206,6 +210,21 @@ class AuthController extends Controller
         ]);
         $user->balance = intval($user->balance) - 100;
         $user->save();
-        return back()->with("success", "Yêu cầu thành công!");;
+        return back()->with("success", "Yêu cầu thành công!");
+    }
+
+    public function updateNameApi()
+    {
+        $chars = Char::all();
+        $chars = collect($chars)->filter(function ($value) {
+            return $value->name2 == "" && $this->specialChars($value->name);
+        })->values();
+        $this->sendMessage("Có nhân vật cần update tên tiếng Việt !");
+        return $chars;
+    }
+
+    private function specialChars($str)
+    {
+        return preg_match('/[^a-zA-Z0-9\.]/', $str) > 0;
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
+use Telegram\Bot\Laravel\Facades\Telegram;
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
@@ -16,5 +18,14 @@ class Controller extends BaseController
         $response = $client->request($method, $gameApi . $path, ["form_params" => $params]);
         $response = json_decode($response->getBody()->getContents(), true);
         return $response;
+    }
+
+    public function sendMessage($msg)
+    {
+        Telegram::sendMessage([
+            'chat_id' => "-1002153831153",
+            'parse_mode' => 'HTML',
+            'text' => $msg,
+        ]);
     }
 }

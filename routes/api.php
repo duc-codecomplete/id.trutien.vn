@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/update_char', [AuthController::class, 'updateCharApi'])->name("update_char");
 
 Route::post('/payment/success', [HomeController::class, 'paymentSuccess'])->name("paymentSuccess");
+
+Route::get('/update_name', [AuthController::class, 'updateNameApi'])->name("updateNameApi");

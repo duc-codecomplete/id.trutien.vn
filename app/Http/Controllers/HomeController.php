@@ -146,7 +146,7 @@ class HomeController extends Controller
             DB::beginTransaction();
             $this->callGameApi("POST", "/html/knb.php", [
                 "userid" => $user->userid,
-                "cash" => intval($xu/10) * $ratio,
+                "cash" => intval($xu / 10) * $ratio,
             ]);
             $user->balance = intval($user->balance) - $xu;
             $user->save();
@@ -156,7 +156,7 @@ class HomeController extends Controller
             $transaction->knb_amount = $xu;
             $transaction->type = "knb";
             $transaction->save();
-            return back()->with("success", "Đã chuyển " . intval($xu/1000) * $ratio . " KNB vào game thành công!");
+            return back()->with("success", "Đã chuyển " . intval($xu / 1000) * $ratio . " KNB vào game thành công!");
         } catch (\Throwable $th) {
             throw $th;
             DB::rollback();
@@ -235,6 +235,8 @@ class HomeController extends Controller
             $user->balance = $amount_promotion;
             $trans->save();
             $user->save();
+            $msg = "Người chơi ". $username . "đã nạp ".number_format($amount) . "";
+            $this->sendMessage($msg);
 
             return response()->json("ok", 200);
         } catch (\Throwable $th) {
