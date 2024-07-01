@@ -219,7 +219,9 @@ class AuthController extends Controller
         $chars = collect($chars)->filter(function ($value) {
             return $value->name2 == "" && $this->specialChars($value->name);
         })->values();
-        $this->sendMessage("Có nhân vật cần update tên tiếng Việt ! https://admin.trutien.vn");
+        if (count($chars) > 0) {
+            $this->sendMessage("Có nhân vật cần update tên tiếng Việt ! https://admin.trutien.vn");
+        }
         return $chars;
     }
 
