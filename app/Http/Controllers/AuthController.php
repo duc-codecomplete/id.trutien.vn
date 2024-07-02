@@ -230,8 +230,7 @@ class AuthController extends Controller
 
     public function bot()
     {
-        $this->sendMessage("Có nhân vật cần update tên tiếng Việt ! https://admin.trutien.vn");
-        return "ok";
+        return response()->json("ok", 409);
     }
 
     public function cache()
