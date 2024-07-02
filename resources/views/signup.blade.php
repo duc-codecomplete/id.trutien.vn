@@ -25,7 +25,7 @@
         </div>
         @endif
         <div class="auth-form-container text-start mx-auto">
-            <form class="auth-form auth-signup-form" action="" method="POST" autocomplete="false">
+            <form class="auth-form auth-signup-form" action="" method="POST" autocomplete="off">
                 @csrf
                 <div class="email mb-3">
                     <label class="sr-only" for="signup-email">Tên đăng nhập</label>
@@ -47,7 +47,9 @@
                     <input value="{{ old('email') }}" id="signup-name" name="email" type="email"
                         class="form-control signup-name" placeholder="Địa chỉ email" required>
                 </div>
-                <!--//extra-->
+                <div class="mb-3">
+                    <small>*Một email có thể dùng để đăng ký cho nhiều tài khoản</small>
+                </div>
 
                 <div class="text-center">
                     <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Đăng ký</button>

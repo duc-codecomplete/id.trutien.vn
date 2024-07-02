@@ -44,18 +44,20 @@ class AuthController extends Controller
             "passwdConfirm.same" => "Mật khẩu nhập lại không đúng",
         ]);
         sleep(2);
+        $gameEmail = $request->login ."." .time() . "@gmail.com";
         $content = $this->callGameApi("POST", "/html/reg.php", [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
             "repasswd" => $request->passwd,
-            "email" => $request->login . "@gmail.com",
+            "email" => $gameEmail,
         ]);
         if ($content["success"]) {
             $user = new User;
             $user->name = $request->login;
+            $user->email2 = $request->email;
             $user->username = $request->login;
             $user->userid = $content["userid"];
-            $user->email = $request->login . "@gmail.com";
+            $user->email = $gameEmail;
             $user->password2 = $request->passwd;
             $user->password = \Hash::make($request->passwd);
             $user->email_verified_at = date("Y-m-d H:i:s");
