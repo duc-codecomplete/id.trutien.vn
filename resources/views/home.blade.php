@@ -32,6 +32,9 @@
                                 <div class="item-label"><strong>ID</strong></div>
                                 <div class="item-data">TT{{ $user->userid }}</div>
                             </div>
+                            <div class="col text-end">
+                                <button class="btn btn-sm btn-warning" id="copyName" style="color:white">Copy</button>
+                            </div>
                         </div>
                         <!--//row-->
                     </div>
@@ -138,6 +141,19 @@
         </div>
     </div>
 </div>
+<script>
+    const copyBtn = document.querySelector('#copyName');
+    copyBtn.addEventListener('click', e => {
+        const input = document.createElement('input');
+        input.value = "TT{{ $user->userid }}";
+        document.body.appendChild(input);
+        input.select();
+        if(document.execCommand('copy')) {
+            alert('Đã copy');
+            document.body.removeChild(input);
+        }
+    });
+</script>
 <style>
     .char {
         margin-bottom: 0 !important;
