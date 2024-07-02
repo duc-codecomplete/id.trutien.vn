@@ -51,7 +51,7 @@
                             <div class="col-auto">
                                 <div class="item-label"><strong>Email</strong></div>
                                 <div class="item-data">
-                                    {{ $user->email }}
+                                    {{ $user->email2 }}
                                 </div>
                             </div>
                         </div>

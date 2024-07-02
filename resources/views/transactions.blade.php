@@ -46,7 +46,7 @@
                                     <tr>
                                         <td class="cell">{{ $loop->index + 1 }}</td>
                                         <td class="cell">{{ $item->knb_amount }}</td>
-                                        <td class="cell">{{ $item->knb_amount * 3 }}</td>
+                                        <td class="cell">{{ $item->knb_amount * 3 / 1000 }}</td>
                                         <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
                                     </tr>
                                     @endforeach
