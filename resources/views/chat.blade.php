@@ -57,7 +57,7 @@
                 <div class="position-relative">
                     <div class="chat-messages p-4">
                         @foreach (array_reverse($chat) as $item)
-                        @if($item["channel "] == "1")
+                        @if($item["channel"] == "1")
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
                                 <div class="font-weight-bold mb-1">{{getName($item["char"])}}</div>
