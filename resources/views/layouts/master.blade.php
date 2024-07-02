@@ -116,7 +116,7 @@
           <ul class="app-menu list-unstyled accordion" id="menu-accordion">
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " home" ? 'active ct-animate-blink' : '' }}" href="/">
+              <a class="nav-link {{ $currentRoute == "home" ? 'active ct-animate-blink' : '' }}" href="/">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
                     viewBox="0 0 16 16">
