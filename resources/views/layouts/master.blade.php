@@ -116,7 +116,7 @@
           <ul class="app-menu list-unstyled accordion" id="menu-accordion">
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == " home" ? 'active' : '' }}" href="/">
+              <a class="nav-link {{ $currentRoute == " home" ? 'active ct-animate-blink' : '' }}" href="/">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
                     viewBox="0 0 16 16">
@@ -131,7 +131,7 @@
             <!--//nav-item-->
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "payment" ? 'active' : '' }}" href="/nap-tien">
+              <a class="nav-link {{ $currentRoute == "payment" ? 'active ct-animate-blink' : '' }}" href="/nap-tien">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-coin"
                     viewBox="0 0 16 16">
@@ -147,7 +147,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "histories" ? 'active' : '' }}" href="/lich-su-nap-tien">
+              <a class="nav-link {{ $currentRoute == "histories" ? 'active ct-animate-blink' : '' }}" href="/lich-su-nap-tien">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-currency-exchange" viewBox="0 0 16 16">
@@ -161,7 +161,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "knb" ? 'active' : '' }}" href="/knb">
+              <a class="nav-link {{ $currentRoute == "knb" ? 'active ct-animate-blink' : '' }}" href="/knb">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-credit-card-fill" viewBox="0 0 16 16">
@@ -175,7 +175,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "transactions" ? 'active' : '' }}" href="/transactions">
+              <a class="nav-link {{ $currentRoute == "transactions" ? 'active ct-animate-blink' : '' }}" href="/transactions">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-currency-dollar" viewBox="0 0 16 16">
@@ -189,7 +189,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "shops" ? 'active' : '' }}" href="/shops">
+              <a class="nav-link {{ $currentRoute == "shops" ? 'active ct-animate-blink' : '' }}" href="/shops">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-cart-check" viewBox="0 0 16 16">
@@ -205,7 +205,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "giftcodes" ? 'active' : '' }}" href="/giftcodes">
+              <a class="nav-link {{ $currentRoute == "giftcodes" ? 'active ct-animate-blink' : '' }}" href="/giftcodes">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift"
                     viewBox="0 0 16 16">
@@ -219,7 +219,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "vip" ? 'active' : '' }}" href="/vip">
+              <a class="nav-link {{ $currentRoute == "vip" ? 'active ct-animate-blink' : '' }}" href="/vip">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-alipay" viewBox="0 0 16 16">
                     <path d="M2.541 0H13.5a2.55 2.55 0 0 1 2.54 2.563v8.297c-.006 0-.531-.046-2.978-.813-.412-.14-.916-.327-1.479-.536q-.456-.17-.957-.353a13 13 0 0 0 1.325-3.373H8.822V4.649h3.831v-.634h-3.83V2.121H7.26c-.274 0-.274.273-.274.273v1.621H3.11v.634h3.875v1.136h-3.2v.634H9.99c-.227.789-.532 1.53-.894 2.202-2.013-.67-4.161-1.212-5.51-.878-.864.214-1.42.597-1.746.998-1.499 1.84-.424 4.633 2.741 4.633 1.872 0 3.675-1.053 5.072-2.787 2.08 1.008 6.37 2.738 6.387 2.745v.105A2.55 2.55 0 0 1 13.5 16H2.541A2.55 2.55 0 0 1 0 13.437V2.563A2.55 2.55 0 0 1 2.541 0"/>
@@ -232,7 +232,7 @@
             </li>
             <li class="nav-item">
               <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-              <a class="nav-link {{ $currentRoute == "chat" ? 'active' : '' }}" href="/chat">
+              <a class="nav-link {{ $currentRoute == "chat" ? 'active ct-animate-blink' : '' }}" href="/chat">
                 <span class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-broadcast-pin" viewBox="0 0 16 16">
                     <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707m2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708m5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708m2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM6 8a2 2 0 1 1 2.5 1.937V15.5a.5.5 0 0 1-1 0V9.937A2 2 0 0 1 6 8"/>
