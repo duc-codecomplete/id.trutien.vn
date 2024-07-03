@@ -61,11 +61,10 @@ class User extends Authenticatable
     }
 
     public function guild() {
-        return $this->hasOne(Guild::class);
+        return $this->hasOne(GuildUser::class);
     }
 
     public function isAdminGuild() {
-        $guild = GuildUser::where("user_id", $this->id)->where("role", "admin")->first();
-        return $guild;
+        return $this->guild && $this->guild->role == "admin";
     }
 }

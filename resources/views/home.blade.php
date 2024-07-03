@@ -13,18 +13,13 @@
                                     <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
                                   </svg>
                             </div>
-                            <!--//icon-holder-->
 
                         </div>
-                        <!--//col-->
                         <div class="col-auto">
                             <h4 class="app-card-title">Thông Tin Tài Khoản</h4>
                         </div>
-                        <!--//col-->
                     </div>
-                    <!--//row-->
                 </div>
-                <!--//app-card-header-->
                 <div class="app-card-body px-4 w-100">
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
@@ -36,9 +31,7 @@
                                 <button class="btn btn-sm btn-warning" id="copyName" style="color:white">Copy</button>
                             </div>
                         </div>
-                        <!--//row-->
                     </div>
-                    <!--//item-->
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
@@ -46,9 +39,7 @@
                                 <div class="item-data">{{ $user->username }}</div>
                             </div>
                         </div>
-                        <!--//row-->
                     </div>
-                    <!--//item-->
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
@@ -58,7 +49,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!--//row-->
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Bang hội</strong></div>
+                                <div class="item-data">
+                                    {{ $user->guild ? $user->guild->guild->name : "Chưa cập nhật" }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="item py-3">
                         <div class="row justify-content-between align-items-center">
@@ -66,13 +66,10 @@
                                 <div class="item-label"><strong>Mật khẩu</strong></div>
                                 <div class="item-data">••••••••</div>
                             </div>
-                            <!--//col-->
                             <div class="col text-end">
                                 <a class="btn btn-sm btn-danger" href="/doi-mat-khau" style="color:white">Thay đổi</a>
                             </div>
-                            <!--//col-->
                         </div>
-                        <!--//row-->
                     </div>
                 </div>
 

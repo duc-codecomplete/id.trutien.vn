@@ -244,4 +244,29 @@ class AuthController extends Controller
     {
         return preg_match('/[^a-zA-Z0-9\.]/', $str) > 0;
     }
+
+    public function buyChat(Request $request)
+    {
+        $user = Auth::user();
+        $cash = $request->count * 100;
+        if ($user->balance < $cash) {
+            return back()->with("error", "Số xu trong tài khoản không đủ!");
+        }
+        $user->chat_count = $user->chat_count + $request->count;
+        $user->balance = $user->balance - $cash;
+        $user->save();
+        return back()->with("success", "Đã mua lượt chat thành công!");
+    }
+
+    public function postChat(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->chat_count == 0) {
+            return back()->with("error", "Đã hết số lượt chat, vui lòng mua thêm!");
+        }
+        if (!$user->is_online) {
+            return back()->with("error", "Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang online trong game!");
+        }
+        return back();
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GuildController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,4 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/lich-su-mua', [HomeController::class, 'shopHistory'])->name("shopHistory");
     Route::get('/vip', [HomeController::class, 'vip'])->name("vip");
     Route::get('/chat', [HomeController::class, 'chat'])->name("chat");
+    Route::post('/chat', [AuthController::class, 'postChat'])->name("postChat");
+    Route::get('/bang-hoi', [GuildController::class, 'getGuild'])->name("getGuild");
+    Route::post('/buy/chat', [AuthController::class, 'buyChat']);
 });
