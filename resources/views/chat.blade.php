@@ -80,7 +80,7 @@
                                     <input type="text" class="form-control" name="msg" required>
                                     <button type="submit" class="btn btn-primary">Gửi</button>
                                 </form>
-                                <small class="text-muted">Bạn sẽ trò chuyện bằng nhân vật: <a href="#">{{ Auth::user()->char->getName() }}</a>, set lại nhân vật chính đang online game ở trang <a href="/">home</a></small>
+                                <small class="text-muted">Bạn sẽ trò chuyện bằng nhân vật: <a href="#">{{ Auth::user()->char ? Auth::user()->char->getName() : "Chưa chọn nhân vật"}}</a>, set lại nhân vật chính đang online game ở trang <a href="/">home</a></small>
                                     <p><small class="text-muted">Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang
                                     online trong
                                     game</small></p>
