@@ -59,4 +59,13 @@ class User extends Authenticatable
     public function getMain() {
         return $this->char ? $this->char->getName() : "Chưa tạo nhân vật";
     }
+
+    public function guild() {
+        return $this->hasOne(Guild::class);
+    }
+
+    public function isAdminGuild() {
+        $guild = GuildUser::where("user_id", $this->id)->where("role", "admin")->first();
+        return $guild;
+    }
 }

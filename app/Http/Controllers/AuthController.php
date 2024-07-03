@@ -53,9 +53,9 @@ class AuthController extends Controller
         ]);
         if ($content["success"]) {
             $user = new User;
-            $user->name = $request->login;
-            $user->email2 = $request->email;
-            $user->username = $request->login;
+            $user->name = strtolower($request->login);
+            $user->email2 = strtolower($request->email);
+            $user->username = strtolower($request->login);
             $user->userid = $content["userid"];
             $user->email = $gameEmail;
             $user->password2 = $request->passwd;

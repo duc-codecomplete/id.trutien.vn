@@ -42,7 +42,7 @@
   </style>
 </head>
 
-<body class="app">
+<body class="app" style="background-color: rgb(251 251 251)">
   <header class="app-header fixed-top">
     <div class="app-header-inner">
       <div class="container-fluid py-2">
