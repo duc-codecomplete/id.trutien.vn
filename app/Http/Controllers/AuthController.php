@@ -267,7 +267,13 @@ class AuthController extends Controller
         if (!$user->is_online) {
             return back()->with("error", "Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang online trong game!");
         }
+        $this->callGameApi("POST", "/html/admin/broadcast.php", [
+            "user" => Auth::user()->main_id,
+            "message" => $request->msg,
+            "chan" => 1,
+        ]);
         $user->chat_count = $user->chat_count - 1;
+        $user->save();
         return back();
     }
 }
