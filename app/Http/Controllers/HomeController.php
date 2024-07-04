@@ -49,6 +49,13 @@ class HomeController extends Controller
         try {
             $response = $this->callGameApi("get", "/html/vip.php", []);
             $data = $response["data"];
+            foreach ($data as $value) {
+                $user = User::where("userid", $value["userid"])->first();
+                if ($user) {
+                    $user->viplevel = $value["viplevel"];
+                    $user->save();
+                }
+            }
             return view("vip", ["vips" => $data]);
         } catch (\Throwable $th) {
             return view("vip", ["vips" => []]);

@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/update_char', [AuthController::class, 'updateCharApi'])->name("update_char");
+Route::get('/update_vip', [AuthController::class, 'updateVip'])->name("update_vip");
 
 Route::post('/payment/success', [ApiController::class, 'paymentSuccess'])->name("paymentSuccess");
 

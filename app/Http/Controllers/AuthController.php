@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Char;
+use App\Models\Exchange;
 use App\Models\User;
 use Auth;
 use DB;
@@ -44,7 +45,7 @@ class AuthController extends Controller
             "passwdConfirm.same" => "Mật khẩu nhập lại không đúng",
         ]);
         sleep(0.5);
-        $gameEmail = $request->login ."." .time() . "@gmail.com";
+        $gameEmail = $request->login . "." . time() . "@gmail.com";
         $content = $this->callGameApi("POST", "/html/reg.php", [
             "login" => strtolower($request->login),
             "passwd" => $request->passwd,
@@ -62,7 +63,7 @@ class AuthController extends Controller
             $user->password = \Hash::make($request->passwd);
             $user->email_verified_at = date("Y-m-d H:i:s");
             $user->save();
-            $this->sendMessage("Người chơi ". $request->login." vừa đăng ký tài khoản");
+            $this->sendMessage("Người chơi " . $request->login . " vừa đăng ký tài khoản");
             return back()->with("success", "Tạo tài khoản thành công!");
         } else {
             return back()->with("error", "Tên đăng nhập đã tồn tại!");
@@ -85,6 +86,19 @@ class AuthController extends Controller
             if (\Auth::user()->role != "member") {
                 \Auth::logout();
                 return redirect()->back()->with('error', 'Thông tin đăng nhập không chính xác');
+            }
+            try {
+                $user = Auth::user();
+                $response = $this->callGameApi("get", "/html/vip.php", []);
+                $data = $response["data"];
+                $vip = current(array_filter($data, function ($e) use ($user) {
+                    return $e["userid"] == $user->userid;
+                }));
+                if ($vip) {
+                    $user->viplevel = $vip["viplevel"];
+                    $user->save();
+                }
+            } catch (\Throwable $th) {
             }
             return redirect('/');
         } else {
@@ -202,7 +216,7 @@ class AuthController extends Controller
             return back()->with("error", "Vui lòng chọn môn phái!");
         }
         $user = Auth::user();
-        if ($user->balance < 100) {
+        if ($user->balance < 100000) {
             return back()->with("error", "Số xu trong tài khoản không đủ!");
         }
         $char = Char::where("char_id", $id)->first();
@@ -211,7 +225,7 @@ class AuthController extends Controller
             "itemid" => request()->class,
             "count" => 1,
         ]);
-        $user->balance = intval($user->balance) - 100;
+        $user->balance = intval($user->balance) - 100000;
         $user->save();
         return back()->with("success", "Yêu cầu thành công!");
     }
@@ -238,7 +252,6 @@ class AuthController extends Controller
         \Artisan::call('clear-compiled');
         return "ok";
     }
-
 
     private function specialChars($str)
     {
@@ -275,5 +288,73 @@ class AuthController extends Controller
         $user->chat_count = $user->chat_count - 1;
         $user->save();
         return back();
+    }
+
+    public function updateVip()
+    {
+        try {
+            $response = $this->callGameApi("get", "/html/vip.php", []);
+            $data = $response["data"];
+            foreach ($data as $value) {
+                $user = User::where("userid", $value["userid"])->first();
+                if ($user) {
+                    $user->viplevel = $value["viplevel"];
+                    $user->save();
+                }
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+            return view("vip", ["vips" => []]);
+        }
+    }
+
+    public function getExchange()
+    {
+        $histories = Exchange::where("from_user_id", Auth::user()->id)->orWhere("to_user_id", Auth::user()->id)->latest()->get();
+        return view("exchange", ["histories" => $histories]);
+    }
+
+    public function postExchange()
+    {
+        $amount = request()->balance;
+        $amount_fee = $amount + $amount * 0.1;
+        $username = request()->username;
+
+        $user_from = Auth::user();
+        $user_to = User::where("username", $username)->first();
+
+        if (!$user_to) {
+            return back()->with("error", "Tài khoản không tồn tại!");
+        }
+        if ($user_from->id == $user_to->id) {
+            return back()->with("error", "Bạn không thể chuyển xu cho chính mình!");
+        }
+
+        if ($amount < 50000) {
+            return back()->with("error", "Mỗi lần chuyển tối thiểu là 50000 xu!");
+        }
+        if ($user_from->balance < $amount_fee) {
+            return back()->with("error", "Số xu trong tài khoản không đủ!");
+        }
+        try {
+            DB::beginTransaction();
+            $user_from->balance = $user_from->balance - $amount_fee;
+            $user_from->save();
+            $user_to->balance = $user_to->balance + $amount;
+            $user_to->save();
+
+            $exchange = new Exchange;
+            $exchange->from_user_id = $user_from->id;
+            $exchange->to_user_id = $user_to->id;
+            $exchange->amount = $amount;
+            $exchange->save();
+            DB::commit();
+            return back()->with("success", "Đã chuyển xu thành công!");
+        } catch (\Throwable $th) {
+            throw $th;
+            DB::rollback();
+            return back()->with("error", "Đã có lỗi xảy ra, vui lòng liên hệ với GM!");
+        }
     }
 }

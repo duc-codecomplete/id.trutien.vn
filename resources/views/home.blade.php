@@ -43,6 +43,33 @@
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
+                                <div class="item-label"><strong>Số xu hiện tại</strong></div>
+                                <div class="item-data"><span style="">{{ number_format($user->balance) }}</span></div>
+                            </div>
+                            <div class="col text-end">
+                                <a href="chuyen-xu" class="btn btn-sm btn-danger" id="copyName" style="color:white">Chuyển xu</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Xu khoá</strong></div>
+                                <div class="item-data"><span style="">{{ number_format($user->balance_free) }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
+                                <div class="item-label"><strong>Cấp VIP</strong></div>
+                                <div class="item-data"><span style="">{{ $user->viplevel }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
                                 <div class="item-label"><strong>Email</strong></div>
                                 <div class="item-data">
                                     {{ $user->email2 }}

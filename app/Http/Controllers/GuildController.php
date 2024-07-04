@@ -9,9 +9,9 @@ class GuildController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function getGuild()
     {
-        //
+        return view("guild");
     }
 
     /**
