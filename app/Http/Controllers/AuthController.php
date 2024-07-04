@@ -60,6 +60,7 @@ class AuthController extends Controller
             $user->userid = $content["userid"];
             $user->email = $gameEmail;
             $user->password2 = $request->passwd;
+            $user->phone = $request->phone;
             $user->password = \Hash::make($request->passwd);
             $user->email_verified_at = date("Y-m-d H:i:s");
             $user->save();

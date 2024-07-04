@@ -43,6 +43,11 @@
                         class="form-control signup-password" placeholder="Nhập lại mật khẩu" required>
                 </div>
                 <div class="email mb-3">
+                    <label class="sr-only" for="signup-email">Số điện thoại</label>
+                    <input value="{{ old('phone') }}" id="signup-name" name="phone" type="phone"
+                        class="form-control signup-name" placeholder="Số điện thoại" required>
+                </div>
+                <div class="email mb-3">
                     <label class="sr-only" for="signup-email">Email</label>
                     <input value="{{ old('email') }}" id="signup-name" name="email" type="email"
                         class="form-control signup-name" placeholder="Địa chỉ email" required>
