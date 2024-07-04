@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\GuildController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\KnbController;
+use App\Http\Controllers\GiftcodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,23 +37,23 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect("/dang-nhap");
     });
 
-    Route::get('/knb', [HomeController::class, 'getKnb'])->name("knb");
-    Route::post('/knb', [HomeController::class, 'postKnb']);
+    Route::get('/knb', [KnbController::class, 'getKnb'])->name("knb");
+    Route::post('/knb', [KnbController::class, 'postKnb']);
 
     Route::get('/nap-tien', [HomeController::class, 'getNapTien'])->name("payment");
     Route::get('/lich-su-nap-tien', [HomeController::class, 'histories'])->name("histories");
-    Route::get('/shops', [HomeController::class, 'getShop'])->name("shops");
-    Route::post('/shops', [HomeController::class, 'postShop']);
+    Route::get('/shops', [ShopController::class, 'getShop'])->name("shops");
+    Route::post('/shops', [ShopController::class, 'postShop']);
 
-    Route::get('/giftcodes', [HomeController::class, 'getGiftCode'])->name("giftcodes");
-    Route::get('/giftcodes/{id}/using', [HomeController::class, 'useGiftCode']);
+    Route::get('/giftcodes', [GiftcodeController::class, 'getGiftCode'])->name("giftcodes");
+    Route::get('/giftcodes/{id}/using', [GiftcodeController::class, 'useGiftCode']);
     Route::get('/transactions', [HomeController::class, 'transactions'])->name("transactions");
 
     Route::get('/doi-mat-khau', [AuthController::class, 'getPassword'])->name("password");
     Route::post('/doi-mat-khau', [AuthController::class, 'postPassword']);
 
     Route::get('/online', [HomeController::class, 'online'])->name("online");
-    Route::get('/lich-su-mua', [HomeController::class, 'shopHistory'])->name("shopHistory");
+    Route::get('/lich-su-mua', [ShopController::class, 'shopHistory'])->name("shopHistory");
     Route::get('/vip', [HomeController::class, 'vip'])->name("vip");
     Route::get('/chat', [HomeController::class, 'chat'])->name("chat");
     Route::post('/chat', [AuthController::class, 'postChat'])->name("postChat");

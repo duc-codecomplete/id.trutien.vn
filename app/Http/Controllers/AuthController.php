@@ -43,7 +43,7 @@ class AuthController extends Controller
             "passwd.alpha_num" => "Mật khẩu chỉ được chứa chữ và số",
             "passwdConfirm.same" => "Mật khẩu nhập lại không đúng",
         ]);
-        sleep(2);
+        sleep(0.5);
         $gameEmail = $request->login ."." .time() . "@gmail.com";
         $content = $this->callGameApi("POST", "/html/reg.php", [
             "login" => strtolower($request->login),
