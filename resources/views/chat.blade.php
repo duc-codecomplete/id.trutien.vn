@@ -120,9 +120,9 @@
                         @if($item["channel"] == "1")
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
-                                <div class="font-weight-bold mb-1">[Thế Giới] <strong
-                                        style="color:rgb(221, 151, 30)">{{getName($item["char"])}}</strong>:
-                                    {{$item["mes"]}}</div>
+                                <div class="font-weight-bold mb-1">[Thế Giới] 
+                                    <strong style="color:rgb(221, 151, 30)">{{getName($item["char"])}}</strong>:
+                                    {{ strpos($item["mes"], "<0>") !== false ? "*Biểu cảm*" : $item["mes"]}}</div>
                             </div>
                         </div>
                         @endif
