@@ -46,9 +46,6 @@
                                 <div class="item-label"><strong>Số xu hiện tại</strong></div>
                                 <div class="item-data"><span style="">{{ number_format($user->balance) }}</span></div>
                             </div>
-                            <div class="col text-end">
-                                <a href="chuyen-xu" class="btn btn-sm btn-danger" id="copyName" style="color:white">Chuyển xu</a>
-                            </div>
                         </div>
                     </div>
                     <div class="item border-bottom py-3">
