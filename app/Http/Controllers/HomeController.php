@@ -56,7 +56,12 @@ class HomeController extends Controller
                     $user->save();
                 }
             }
-            return view("vip", ["vips" => $data]);
+            $sorted = collect($data)->sortByDesc([
+                ['viplevel', 'desc']
+            ]);
+
+            $sorted->values()->all();
+            return view("vip", ["vips" => $sorted]);
         } catch (\Throwable $th) {
             return view("vip", ["vips" => []]);
         }
