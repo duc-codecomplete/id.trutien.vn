@@ -275,19 +275,24 @@ class AuthController extends Controller
     public function postChat(Request $request)
     {
         $user = Auth::user();
-        if ($user->chat_count == 0) {
-            return back()->with("error", "Đã hết số lượt chat, vui lòng mua thêm!");
+        if ($user->viplevel < 6) {
+            if ($user->chat_count == 0) {
+                return back()->with("error", "Đã hết số lượt chat, vui lòng mua thêm!");
+            }
         }
         if (!$user->is_online) {
             return back()->with("error", "Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang online trong game!");
         }
+        sleep(2);
         $this->callGameApi("POST", "/html/admin/broadcast.php", [
             "user" => Auth::user()->main_id,
             "message" => $request->msg,
             "chan" => 1,
         ]);
-        $user->chat_count = $user->chat_count - 1;
-        $user->save();
+        if ($user->viplevel < 6) {
+            $user->chat_count = $user->chat_count - 1;
+            $user->save();
+        }
         return back();
     }
 

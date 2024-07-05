@@ -82,11 +82,11 @@
                                 </form>
                                 <small class="text-muted">Bạn sẽ trò chuyện bằng nhân vật: <a href="#">{{ Auth::user()->char ? Auth::user()->char->getName() : "Chưa chọn nhân vật"}}</a>, set lại nhân vật chính đang online game ở trang <a href="/">home</a></small>
                                     <p><small class="text-muted">Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang
-                                    online trong
+                                    online trong, do 1 số hạn chế nên tin nhắn từ web sẽ không thể hiển thị ở lịch sử bên dưới, nhưng vẫn hiển thị trong game!
                                     game</small></p>
                                 <small class="text-muted">Số lượt chat còn lại: {{ Auth::user()->chat_count }}, nhấn
                                         vào <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">đây</a>
-                                        mua thêm lượt chat</small>
+                                        mua thêm lượt chat (Vip 6 trở lên miễn phí)</small>
                             </div>
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
