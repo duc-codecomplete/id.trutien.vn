@@ -58,5 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/chat', [HomeController::class, 'chat'])->name("chat");
     Route::post('/chat', [AuthController::class, 'postChat'])->name("postChat");
     Route::get('/bang-hoi', [GuildController::class, 'getGuild'])->name("guild");
+    Route::post('/bang-hoi', [GuildController::class, 'postGuild'])->name("guild");
     Route::post('/buy/chat', [AuthController::class, 'buyChat']);
 });

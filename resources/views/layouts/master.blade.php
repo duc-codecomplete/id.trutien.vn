@@ -58,11 +58,6 @@
                 </svg>
               </a>
             </div>
-            <!--//col-->
-            <div class="search-mobile-trigger d-sm-none col">
-              <i class="search-mobile-trigger-icon fa-solid fa-magnifying-glass"></i>
-            </div>
-            <!--//app-search-box-->
 
             <div class="app-utilities col-auto">
               <div class="app-utility-item">
@@ -84,12 +79,13 @@
                   </svg> Số dư: <small style="color:blue">{{number_format($user->balance)}} xu</small>
                 </a>
               </div>
-              <div class="app-utility-item app-user-dropdown dropdown">
-                <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                  aria-expanded="false"><img src="/assets/logo2.png" alt="user profile"></a>
-                <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                  <li><a class="dropdown-item" href="/logout">Thoát</a></li>
-                </ul>
+              <div class="app-utility-item">
+                <a href="/logout" title="Settings">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                    <path d="M7.5 1v7h1V1z"/>
+                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
+                  </svg>
+                </a>
               </div>
               <!--//app-user-dropdown-->
             </div>
