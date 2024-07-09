@@ -3,9 +3,9 @@
 <div class="container-xl">
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">Bang hội {{ $guild->guild->name }}</h1>
+            <h1 class="app-page-title mb-0">{{ $guild ? "Bang hội ".$guild->guild->name : "Bạn chưa thuộc về Bang Hội nào" }}</h1>
         </div>
-        @if($guild->role == "admin")
+        @if($guild && $guild->role == "admin")
         <div class="col-auto">
             <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Thêm thành
                 viên</button>
@@ -37,6 +37,7 @@
             </div>
         </div>
     </div>
+    @if($guild)
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-12 col-lg-6">
             <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -85,6 +86,7 @@
             <!--//app-card-->
         </div>
     </div>
+    @endif
 </div>
 @if(Session::has('error'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -98,6 +100,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+@if($guild)
 <div class="row g-4">
     <div class="col-12">
         <table class="table table-bordered">
@@ -125,4 +128,5 @@
         </table>
     </div>
 </div>
+@endif
 @endsection

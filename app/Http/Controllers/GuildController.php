@@ -15,7 +15,10 @@ class GuildController extends Controller
     public function getGuild()
     {
         $guild = Auth::user()->guild;
-        $users = GuildUser::where("guild_id", $guild->guild_id)->get();
+        $users = [];
+        if ($guild) {
+            $users = GuildUser::where("guild_id", $guild->guild_id)->get();
+        }
         return view("guild", ["users" => $users, "guild" => $guild]);
     }
 
