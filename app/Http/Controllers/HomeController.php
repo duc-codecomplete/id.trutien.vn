@@ -70,11 +70,13 @@ class HomeController extends Controller
     public function chat()
     {
         try {
-            $response = $this->callGameApi("get", "/html/ch.php", []);
+            $smiles = $this->smiles();
+            
+            $response = $this->callGameApi("get", "/html/chats.php", []);
             $data = $response["data"];
-            return view("chat", ["chat" => $data]);
+            return view("chat", ["chat" => $data, "smiles" => $smiles]);
         } catch (\Throwable $th) {
-            return view("chat", ["chat" => []]);
+            return view("chat", ["chat" => [], "smiles" => $smiles]);
         }
     }
 

@@ -29,6 +29,26 @@
         overflow: auto;
     }
 </style>
+@php
+if (!function_exists('replaceSmile')){
+    function replaceSmile($smiles, $str) {
+        $xx = $str;
+        $msgx = [];
+        foreach (mb_str_split($xx) as $char) {
+            if (mb_detect_encoding($char, 'auto') != "UTF-8") {
+                array_push($msgx, $char);
+            }
+
+        }
+
+        $ac = implode('', ($msgx));
+        foreach ($smiles as $key) {
+            $ac = str_replace($key, '*Biểu cảm*', $ac);
+        }
+        return $ac;
+    }
+}
+@endphp
 <div class="container-fluid p-0">
 
     <div class="mb-3">
@@ -120,9 +140,9 @@
                         @if($item["channel"] == "1")
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
-                                <div class="font-weight-bold mb-1">[Thế Giới] 
+                                <div class="font-weight-bold mb-1">[Thế Giới] {{$item["time"]}}
                                     <strong style="color:rgb(221, 151, 30)">{{getName($item["char"])}}</strong>:
-                                    {{ strpos($item["mes"], "<0>") !== false ? "*Biểu cảm*" : $item["mes"]}}</div>
+                                    {{ replaceSmile($smiles, $item["mes"]) }}</div>
                             </div>
                         </div>
                         @endif
