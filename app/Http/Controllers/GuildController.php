@@ -23,9 +23,10 @@ class GuildController extends Controller
             $users = FamilyUser::where("fid", $fid)->get();
             $cid = Family::where("fid", $fid)->first()->guildid;
             $clan = Clan::where("guildid", $cid)->first();
-            $families = Family::where("guildid", $cid)->get();
+            $families = Family::where("guildid", $cid)->pluck("fid");
+            $users = FamilyUser::whereIn("fid", $families)->get();
         }
-        return view("guild", ["guild" => $clan]);
+        return view("guild", ["guild" => $clan, "users" => $users]);
     }
 
     /**
@@ -33,25 +34,7 @@ class GuildController extends Controller
      */
     public function postGuild()
     {
-        $username = request()->username;
-        $guild = Auth::user()->guild;
-        if ($guild->role == "admin") {
-            $member = User::where("username", $username)->first();
-            if (!$member) {
-                return back()->with("error", "Tài khoản đã tồn tại!");
-            }
-
-            if (GuildUser::where("user_id", $member->id)->first()) {
-                return back()->with("error", "Tài khoản đã thuộc về bang hội!");
-            }
-            $item = new GuildUser;
-            $item->guild_id = $guild->guild_id;
-            $item->user_id = $member->id;
-            $item->status = "inactive";
-            $item->role = "member";
-            $item->save();
-            return back()->with("success", "Đã thêm, chờ xác nhận từ member");
-        }
+        return back()->with("success", "Đã thêm, chờ xác nhận từ member");
         return back()->with("error", "Đã có lỗi xảy ra, vui lòng liên hệ với GM!");
     }
 

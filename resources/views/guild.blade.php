@@ -16,7 +16,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm thành viên bang hội</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Phát quà bang chiến</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -77,15 +77,6 @@
                             <div class="col-auto">
                                 <div class="item-label"><strong>Số dư xu bang hội</strong></div>
                                 <div class="item-data"><span style="">{{ $guild->balance }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item border-bottom py-3">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-auto">
-                                <div class="item-label"><strong>Xu khoá</strong></div>
-                                <div class="item-data"><span style="">2222</span>
                                 </div>
                             </div>
                         </div>

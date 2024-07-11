@@ -35,9 +35,9 @@ if (!function_exists('replaceSmile')){
         $xx = $str;
         $msgx = [];
         foreach (mb_str_split($xx) as $char) {
-            if (mb_detect_encoding($char, 'auto') != "UTF-8") {
+            //if (mb_detect_encoding($char, 'auto') != "UTF-8") {
                 array_push($msgx, $char);
-            }
+            //}
 
         }
 
