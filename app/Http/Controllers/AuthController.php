@@ -136,6 +136,11 @@ class AuthController extends Controller
         $data = $response["data"];
         $chars = [];
         foreach ($data as $user) {
+            $item = User::where("userid", $user["akkid"])->first();
+            if (!$item->main_id) {
+                $item->main_id = $user["id"];
+                $item->save();
+            }
             array_push($chars, [
                 "userid" => $user["akkid"],
                 "char_id" => $user["id"],
