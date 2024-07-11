@@ -6,6 +6,7 @@ use App\Models\Deposit;
 use App\Models\User;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -46,6 +47,7 @@ class ApiController extends Controller
 
             return response()->json("ok", 200);
         } catch (\Throwable $th) {
+            throw $th;
             return view("chat", ["chat" => []]);
         }
     }
