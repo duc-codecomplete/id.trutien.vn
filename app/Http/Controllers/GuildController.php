@@ -18,6 +18,7 @@ class GuildController extends Controller
     {
         $familyUser = FamilyUser::where("char_id", Auth::user()->main_id)->first();
         $clan = null;
+        $users = [];
         if ($familyUser) {
             $fid = $familyUser->fid;
             $users = FamilyUser::where("fid", $fid)->get();

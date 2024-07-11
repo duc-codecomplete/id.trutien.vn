@@ -98,7 +98,7 @@ class ApiController extends Controller
                 ]);
             }
         }
-
+        DB::table("families")->truncate();
         Family::upsert($families_res, ['fid'], ['name', "char_id", 'guildid']);
         $users = (explode("\n", $parts[2]));
 
