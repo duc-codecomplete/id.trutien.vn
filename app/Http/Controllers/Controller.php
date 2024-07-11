@@ -20,6 +20,13 @@ class Controller extends BaseController
         return $response;
     }
 
+    public function callGuildApi($path) {
+        $client = new \GuzzleHttp\Client();
+        $gameApi = env('GAME_API_ENDPOINT', '');
+        $response = $client->request("get", $gameApi . $path, []);
+        return $response->getBody()->getContents();
+    }
+
     public function sendMessage($msg)
     {
         Telegram::sendMessage([

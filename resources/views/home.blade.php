@@ -94,7 +94,7 @@
                             <div class="col-auto">
                                 <div class="item-label"><strong>Bang hội</strong></div>
                                 <div class="item-data">
-                                    {{ $user->guild ? $user->guild->guild->name : "Chưa cập nhật" }}
+                                    {{  "Chưa cập nhật" }}
                                 </div>
                             </div>
                         </div>

@@ -60,6 +60,10 @@ class User extends Authenticatable
         return $this->char ? $this->char->getName() : "Chưa tạo nhân vật";
     }
 
+    public function getOnline($char_id) {
+        return $this->is_online & $this->main_id == $char_id ? "Online" : "Offline";
+    }
+
     public function guild() {
         return $this->hasOne(GuildUser::class);
     }

@@ -126,6 +126,7 @@ class AuthController extends Controller
     public function updateChar()
     {
         $this->charUpdate();
+        $this->setOnline();
         return back();
     }
 
@@ -144,6 +145,7 @@ class AuthController extends Controller
                 "class" => $user["occupation"],
                 "level" => $user["level"],
                 "reputation" => $user["reputation"],
+                "pre_name" => $user["name"],
             ]);
         }
         Char::upsert($chars, ['char_id', 'userid'], ['name', "pk_value", "gender", "class", "level", "reputation"]);

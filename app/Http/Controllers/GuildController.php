@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\GuildUser;
 use Auth;
+use Illuminate\Http\Request;
+use App\Models\Clan;
+use App\Models\Family;
+use App\Models\FamilyUser;
 
 class GuildController extends Controller
 {
@@ -14,12 +16,16 @@ class GuildController extends Controller
      */
     public function getGuild()
     {
-        $guild = Auth::user()->guild;
-        $users = [];
-        if ($guild) {
-            $users = GuildUser::where("guild_id", $guild->guild_id)->get();
+        $familyUser = FamilyUser::where("char_id", Auth::user()->main_id)->first();
+        $clan = null;
+        if ($familyUser) {
+            $fid = $familyUser->fid;
+            $users = FamilyUser::where("fid", $fid)->get();
+            $cid = Family::where("fid", $fid)->first()->guildid;
+            $clan = Clan::where("guildid", $cid)->first();
+            $families = Family::where("guildid", $cid)->get();
         }
-        return view("guild", ["users" => $users, "guild" => $guild]);
+        return view("guild", ["guild" => $clan]);
     }
 
     /**

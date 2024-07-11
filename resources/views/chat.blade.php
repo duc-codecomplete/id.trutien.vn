@@ -43,7 +43,7 @@ if (!function_exists('replaceSmile')){
 
         $ac = implode('', ($msgx));
         foreach ($smiles as $key) {
-            $ac = str_replace($key, '*Biểu cảm*', $ac);
+            $ac = str_replace($key, ' *Biểu cảm* ', $ac);
         }
         return $ac;
     }
@@ -140,7 +140,7 @@ if (!function_exists('replaceSmile')){
                         @if($item["channel"] == "1")
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
-                                <div class="font-weight-bold mb-1">[Thế Giới] {{$item["time"]}}
+                                <div class="font-weight-bold mb-1">[Thế Giới] <span style="color:rgb(37, 26, 7)">{{$item["time"]}}</span>
                                     <strong style="color:rgb(221, 151, 30)">{{getName($item["char"])}}</strong>:
                                     {{ replaceSmile($smiles, $item["mes"]) }}</div>
                             </div>

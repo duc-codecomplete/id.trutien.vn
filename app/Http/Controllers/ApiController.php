@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Clan;
+use App\Models\Family;
+use App\Models\FamilyUser;
+use DB;
 
 class ApiController extends Controller
 {
@@ -50,6 +54,68 @@ class ApiController extends Controller
             throw $th;
             return view("chat", ["chat" => []]);
         }
+    }
+
+    public function getGuilds() {
+        $res = $this->callGuildApi("/html/guild.php");
+        $handlex = str_replace('"', '', $res);
+        $res = [];
+        foreach (mb_str_split($handlex) as $char) {
+            if (mb_detect_encoding($char, "UTF-8", true)) {
+                array_push($res, $char);
+            }
+
+        }
+        $handlex = (implode("", $res));
+        $parts = (explode("========", $handlex));
+
+        $guilds = (explode("\n", $parts[0]));
+        $guilds_res = [];
+        foreach ($guilds as $key) {
+            if ($key && !str_contains($key, 'Log::')) {
+                $keys = explode(",", $key);
+                array_push($guilds_res, [
+                    "guildid" => $keys[0],
+                    "name" => $keys[1] ? $keys[1] : "Unknow",
+                    "level" => $keys[2],
+                    "char_id" => $keys[3],
+                    "size" => $keys[5],
+                ]);
+            }
+        }
+        Clan::upsert($guilds_res, ['guildid'], ['name', "level", "char_id", "size"]);
+        $families = (explode("\n", $parts[1]));
+
+        $families_res = [];
+        foreach ($families as $key) {
+            if ($key && !str_contains($key, 'Log::')) {
+                $keys = explode(",", $key);
+                array_push($families_res, [
+                    "fid" => $keys[0],
+                    "name" => $keys[1],
+                    "char_id" => $keys[2],
+                    "guildid" => $keys[3]
+                ]);
+            }
+        }
+
+        Family::upsert($families_res, ['fid'], ['name', "char_id", 'guildid']);
+        $users = (explode("\n", $parts[2]));
+
+        $users_res = [];
+        foreach ($users as $key) {
+            if ($key && !str_contains($key, 'Log::')) {
+                $keys = explode(",", $key);
+                array_push($users_res, [
+                    "char_id" => $keys[0],
+                    "fid" => $keys[1],
+                    "created_at" => date("Y-m-d H:i:s")
+                ]);
+            }
+        }
+        DB::table("family_users")->truncate();
+        FamilyUser::upsert($users_res, ['char_id', 'fid'], ["created_at"]);
+        return response()->json("success", 200);
     }
 
     private function getCurrentPromotion()

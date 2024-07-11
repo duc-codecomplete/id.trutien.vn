@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Guild extends Model
+class Clan extends Model
 {
     use HasFactory;
 
-    public function users() {
-        return $this->hasMany(User::class);
+    public function families() {
+        return $this->hasMany(Family::class, "guildid", "id");
     }
 }

@@ -24,7 +24,9 @@ Route::get('/update_char', [AuthController::class, 'updateCharApi'])->name("upda
 Route::get('/update_vip', [AuthController::class, 'updateVip'])->name("update_vip");
 
 Route::post('/payment/success', [ApiController::class, 'paymentSuccess'])->name("paymentSuccess");
+Route::get('/update_guild', [ApiController::class, 'getGuilds'])->name("getGuilds");
 
 Route::get('/update_name', [AuthController::class, 'updateNameApi'])->name("updateNameApi");
+Route::get('/name_change', [AuthController::class, 'nameChange'])->name("nameChange");
 Route::get('/bot', [AuthController::class, 'bot'])->name("bot");
 Route::get('/cache', [AuthController::class, 'cache'])->name("cache");
