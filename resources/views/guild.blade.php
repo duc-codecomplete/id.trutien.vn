@@ -3,7 +3,7 @@
 <div class="container-xl">
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">{{ $guild ? "Bang hội ".$guild->name : "Bạn chưa thuộc về Bang Hội nào" }}
+            <h1 class="app-page-title mb-0">{{ $guild ? $guild->name2 : "Bạn chưa thuộc về Bang Hội nào" }}
             </h1>
         </div>
         @if ($guild && $guild->char_id == Auth::user()->main_id)
