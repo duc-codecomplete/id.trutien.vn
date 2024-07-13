@@ -67,8 +67,9 @@ class ApiController extends Controller
 
         }
         $handlex = (implode("", $res));
-        $parts = (explode("========", $handlex));
-
+        
+        $parts = (explode("========\n", $handlex));
+        
         $guilds = (explode("\n", $parts[0]));
         $guilds_res = [];
         foreach ($guilds as $key) {
@@ -115,7 +116,7 @@ class ApiController extends Controller
         }
         DB::table("family_users")->truncate();
         FamilyUser::upsert($users_res, ['char_id', 'fid'], ["created_at"]);
-        return response()->json("success", 200);
+        return response()->json($guilds_res, 200);
     }
 
     private function getCurrentPromotion()

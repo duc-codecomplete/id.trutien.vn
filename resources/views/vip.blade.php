@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             @foreach ($vips as $item)
-              @if(getAcc($item["userid"]))
+              @if(getAcc($item["userid"]) && !in_array($item["userid"], $ignores))
               <tr>
                 <td><strong style="color:blue">{{ getChar($item["userid"]) }}</strong> ({{ getAcc($item["userid"]) }})</td>
                 <td>{{ $item["viplevel"] }}</td>

@@ -47,6 +47,7 @@ class HomeController extends Controller
     public function vip()
     {
         try {
+            $ignores = ["1040", "7024"];
             $response = $this->callGameApi("get", "/html/vip.php", []);
             $data = $response["data"];
             foreach ($data as $value) {
@@ -61,9 +62,9 @@ class HomeController extends Controller
             ]);
 
             $sorted->values()->all();
-            return view("vip", ["vips" => $sorted]);
+            return view("vip", ["vips" => $sorted, "ignores" => $ignores]);
         } catch (\Throwable $th) {
-            return view("vip", ["vips" => []]);
+            return view("vip", ["vips" => [], "ignores" => $ignores]);
         }
     }
 
