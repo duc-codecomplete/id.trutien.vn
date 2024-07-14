@@ -46,7 +46,7 @@ class ApiController extends Controller
             $user->balance = $amount_promotion;
             $trans->save();
             $user->save();
-            $msg = "Người chơi " . $username . "đã nạp " . number_format($amount) . "";
+            $msg = "Người chơi " . $username . " đã nạp " . number_format($amount) . "";
             $this->sendMessage($msg);
 
             return response()->json("ok", 200);
