@@ -118,7 +118,7 @@
             <div class="card-body">
                 <div class="tab-content">
                     @foreach ($guild->families as $id)
-                    <div class="tab-pane {{ $loop->index == 0 ? " active" : "" }}" id="tabs-home-{{$id->id}}"
+                    <div class="tab-pane {{ $loop->index == 0 ? 'active' : '' }}" id="tabs-home-{{$id->id}}"
                         role="tabpanel">
                         <table class="table table-bordered">
                             <thead>
