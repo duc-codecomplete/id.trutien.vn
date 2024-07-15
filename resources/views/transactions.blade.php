@@ -18,14 +18,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
+    @php
+        function getSum($data) {
+            $sum = 0;
+            foreach ($data as $item) {
+                $sum = $sum + $item->shop->price * $item->shop_quantity;
+            }
+            return $sum;
+        }
+        @endphp
     <div class="">
         <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
             <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab"
-                href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Chuyển đổi KNB</a>
+                href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Chuyển đổi KNB ({{ number_format($knbs->sum('knb_amount'))  }})</a>
             <a class="flex-sm-fill text-sm-center nav-link" id="orders-paid-tab" data-bs-toggle="tab"
-                href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Shop vật phẩm</a>
+                href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Shop vật phẩm ({{ number_format(getSum($shops))  }})</a>
         </nav>
-
+        
 
         <div class="tab-content" id="orders-table-tab-content">
             <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
