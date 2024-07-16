@@ -10,9 +10,9 @@ class Giftcode extends Model
 {
     use HasFactory;
 
-    public function beUsedByUser($user_id)
+    public function beUsedByUser()
     {
-        $used = GiftcodeUser::where(["user_id" => $user_id, "giftcode_id" => $this->id])->first();
+        $used = GiftcodeUser::where(["char_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
         return $used ? true : false;
     }
 }

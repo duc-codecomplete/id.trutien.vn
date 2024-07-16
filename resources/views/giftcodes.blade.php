@@ -29,8 +29,8 @@
         <select name="main_id" class="form-control" style="padding-top: 0;padding-bottom: 0;">
             <option value="">---Chọn nhân vật---</option>
             @foreach (Auth::user()->chars() as $item)
-            <option value="{{ $item['char_id'] }}" @php if ($item["char_id"] == Auth::user()->main_id) {
-                echo "selected";
+            <option value="{{ $item['char_id'] }}" @php if ($item['char_id'] == Auth::user()->main_id) {
+                echo 'selected';
             } @endphp>{{ $item['char_id'] }} - {{ $item->getName() }} - {{ $item->getClass() }}</option>
             @endforeach
         </select>
@@ -62,7 +62,7 @@
                 <td>{{\Carbon\Carbon::parse($item->expired)->format("d/m/Y")}}</td>
                 <td>{{ $item->count }}</td>
                 <td>
-                    @if ($item->beUsedByUser(Auth::user()->id))
+                    @if ($item->beUsedByUser())
                     <button class="btn btn-success" disabled>Đã sử dụng</button>
                     @else
                     <a href="/giftcodes/{{ $item->id}}/using" class="btn btn-danger">Sử dụng</a>

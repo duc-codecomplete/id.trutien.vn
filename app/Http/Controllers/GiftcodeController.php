@@ -24,7 +24,7 @@ class GiftcodeController extends Controller
         if (!$user->main_id) {
             return back()->with("error", "Vui lòng vào game tạo nhân vật!!");
         }
-        $userGiftcode = GiftcodeUser::where(["user_id" => $user->id, "giftcode_id" => $id])->first();
+        $userGiftcode = GiftcodeUser::where(["char_id" => $user->main_id, "giftcode_id" => $id])->first();
         if ($userGiftcode) {
             return redirect()->back()->with('error', 'Bạn đã dùng giftcode này!');
         }
