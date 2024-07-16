@@ -93,7 +93,7 @@
                                         <td class="cell">{{ $loop->index + 1}}</td>
                                         <td class="cell">{{ $item->shop->name }}</td>
                                         <td class="cell">{{ $item->shop_quantity }}</td>
-                                        <td class="cell">{{ $item->shop_quantity * $item->shop->price }}</td>
+                                        <td class="cell">{{ number_format($item->shop_quantity * $item->shop->price) }}</td>
                                         <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
                                         <td class="cell">{{ $item->getCharName() }}</td>
                                     </tr>
