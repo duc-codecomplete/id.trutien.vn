@@ -3,7 +3,7 @@
 <div class="container-xl">
     <div class="row g-3 mb-4 align-items-center justify-content-between">
         <div class="col-auto">
-            <h1 class="app-page-title mb-0">Lịch sử nạp tiền ({{ number_format($histories->sum('amount_promotion'))  }})</h1>
+            <h1 class="app-page-title mb-0">Lịch sử nạp tiền ({{ number_format($histories->sum('amount')) }} - {{ number_format($histories->sum('amount_promotion'))  }})</h1>
         </div>
     </div>
     @if(Session::has('error'))

@@ -82,6 +82,7 @@
                                         <th class="cell">#</th>
                                         <th class="cell">Vật phẩm</th>
                                         <th class="cell">Số lượng</th>
+                                        <th class="cell">Tổng tiền</th>
                                         <th class="cell">Ngày mua</th>
                                         <th class="cell">Nhân vật mua</th>
                                     </tr>
@@ -92,6 +93,7 @@
                                         <td class="cell">{{ $loop->index + 1}}</td>
                                         <td class="cell">{{ $item->shop->name }}</td>
                                         <td class="cell">{{ $item->shop_quantity }}</td>
+                                        <td class="cell">{{ $item->shop_quantity * $item->shop->price }}</td>
                                         <td class="cell">{{ \Carbon\Carbon::parse($item->created_at)->format("d/m/Y H:i:s") }}</td>
                                         <td class="cell">{{ $item->getCharName() }}</td>
                                     </tr>
