@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\GiftcodeUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Giftcode extends Model
 {
@@ -12,7 +13,7 @@ class Giftcode extends Model
 
     public function beUsedByUser()
     {
-        $used = GiftcodeUser::where(["char_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
+        $used = GiftcodeUser::where(["cha_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
         return $used ? true : false;
     }
 }
