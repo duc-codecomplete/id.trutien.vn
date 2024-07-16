@@ -13,7 +13,7 @@ class Giftcode extends Model
 
     public function beUsedByUser()
     {
-        $used = GiftcodeUser::where(["cha_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
+        $used = GiftcodeUser::where(["char_id" => Auth::user()->main_id, "giftcode_id" => $this->id])->first();
         return $used ? true : false;
     }
 }
