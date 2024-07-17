@@ -43,7 +43,7 @@ class ApiController extends Controller
                 }
             }
             $trans->amount_promotion = $amount_promotion;
-            $user->balance = $amount_promotion;
+            $user->balance = $user->balance + $amount_promotion;
             $trans->save();
             $user->save();
             $msg = "Người chơi " . $username . " đã nạp " . number_format($amount) . "";
