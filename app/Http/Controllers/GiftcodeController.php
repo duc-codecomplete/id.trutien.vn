@@ -39,11 +39,26 @@ class GiftcodeController extends Controller
             $code->count = $code->count + 1;
             $code->save();
 
-            $this->callGameApi("post", "/html/send2.php", [
-                "receiver" => $user->main_id,
-                "itemid" => $code->itemid,
-                "count" => $code->quantity,
-            ]);
+            if ($code->giftcode == "FREEKHAM8") {
+                $ids = ["81816", "81822", "81828", "81834"];
+                foreach ($ids as $it) {
+                    $this->callGameApi("post", "/html/send2.php", [
+                        "receiver" => $user->main_id,
+                        "itemid" => $it,
+                        "count" => 2,
+                    ]);
+                }
+                
+
+            } else {
+                $this->callGameApi("post", "/html/send2.php", [
+                    "receiver" => $user->main_id,
+                    "itemid" => $code->itemid,
+                    "count" => $code->quantity,
+                ]);
+
+            }
+
             DB::commit();
             return back()->with("success", "Sử dụng giftcode thành công, vui lòng check tín sứ!");
         } catch (\Exception $e) {
