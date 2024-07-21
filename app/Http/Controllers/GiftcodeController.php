@@ -49,6 +49,17 @@ class GiftcodeController extends Controller
                     ]);
                 }
                 
+            
+            }else if ($code->giftcode == "KHUON14X") {
+                $ids = ["40649","40648","40650","40651","40990","40997","40995","40973","40974","40975","40976","40989","40996","40994","40991","43514","43516","43515","43517"];
+                foreach ($ids as $it) {
+                    $this->callGameApi("post", "/html/send2.php", [
+                        "receiver" => $user->main_id,
+                        "itemid" => $it,
+                        "count" => 1,
+                    ]);
+                }
+                
 
             } else {
                 $this->callGameApi("post", "/html/send2.php", [
