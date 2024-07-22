@@ -14,7 +14,7 @@ class GiftcodeController extends Controller
 
     public function getGiftcode()
     {
-        $giftcodes = Giftcode::all();
+        $giftcodes = Giftcode::whereDate('expired', '>=', Carbon::now())->get();
         return view("giftcodes", ["giftcodes" => $giftcodes]);
     }
 
