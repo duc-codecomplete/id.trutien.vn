@@ -11,6 +11,7 @@ use App\Models\Clan;
 use App\Models\Family;
 use App\Models\FamilyUser;
 use DB;
+use Log;
 
 class ApiController extends Controller
 {
@@ -58,15 +59,17 @@ class ApiController extends Controller
 
     public function getGuilds() {
         $res = $this->callGuildApi("/html/guild.php");
-        $handlex = str_replace('"', '', $res);
-        $res = [];
-        foreach (mb_str_split($handlex) as $char) {
-            if (mb_detect_encoding($char, "UTF-8", true)) {
-                array_push($res, $char);
-            }
+        
+        $handlex = preg_replace('#(").*?(")#', '', $res);
+        // return $handlex;
+        // $res = [];
+        // foreach (mb_str_split($handlex) as $char) {
+        //     if (mb_detect_encoding($char, "UTF-8", true)) {
+        //         array_push($res, $char);
+        //     }
 
-        }
-        $handlex = (implode("", $res));
+        // }
+        // $handlex = (implode("", $res));
         
         $parts = (explode("========\n", $handlex));
         
@@ -75,32 +78,41 @@ class ApiController extends Controller
         foreach ($guilds as $key) {
             if ($key && !str_contains($key, 'Log::')) {
                 $keys = explode(",", $key);
-                array_push($guilds_res, [
-                    "guildid" => $keys[0],
-                    "name" => $keys[1] ? $keys[1] : "Unknow",
-                    "level" => $keys[2],
-                    "char_id" => $keys[3],
-                    "size" => $keys[5],
-                ]);
+                if (count($keys) > 1) {
+                    array_push($guilds_res, [
+                        "guildid" => $keys[0],
+                        "name" => $keys[1] ? $keys[1] : "Unknow",
+                        "level" => $keys[2],
+                        "char_id" => count($keys) == 5 ? $keys[2] :  $keys[3],
+                        "size" => count($keys) == 5 ? $keys[4] :  $keys[5],
+                    ]);
+
+                }
             }
         }
+        //return $guilds_res;
         Clan::upsert($guilds_res, ['guildid'], ['name', "level", "char_id", "size"]);
         $families = (explode("\n", $parts[1]));
+        //return $families;
 
         $families_res = [];
         foreach ($families as $key) {
             if ($key && !str_contains($key, 'Log::')) {
                 $keys = explode(",", $key);
-                array_push($families_res, [
-                    "fid" => $keys[0],
-                    "name" => $keys[1],
-                    "char_id" => $keys[2],
-                    "guildid" => $keys[3]
-                ]);
+                if ($keys[3] != "0") {
+                    array_push($families_res, [
+                        "fid" => $keys[0],
+                        "name" => $keys[1] ? $keys[1] : "Unknow",
+                        "char_id" => $keys[2],
+                        "guildid" => $keys[3]
+                    ]);
+                }
+                
             }
         }
+        return $families_res;
         DB::table("families")->truncate();
-        Family::upsert($families_res, ['fid'], ['name', "char_id", 'guildid']);
+        Family::insert($families_res);
         $users = (explode("\n", $parts[2]));
 
         $users_res = [];
@@ -115,7 +127,7 @@ class ApiController extends Controller
             }
         }
         DB::table("family_users")->truncate();
-        FamilyUser::upsert($users_res, ['char_id', 'fid'], ["created_at"]);
+        FamilyUser::insert($users_res);
         return response()->json($guilds_res, 200);
     }
 

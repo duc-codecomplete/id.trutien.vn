@@ -9,7 +9,7 @@ class Clan extends Model
 {
     use HasFactory;
 
-    public function families() {
-        return $this->hasMany(Family::class, "guildid", "id");
+    public function getFamilies() {
+        return Family::where("guildid", $this->guildid)->get();
     }
 }

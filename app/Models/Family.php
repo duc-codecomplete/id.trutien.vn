@@ -14,7 +14,7 @@ class Family extends Model
     }
 
 
-    public function members() {
-        return $this->hasMany(FamilyUser::class, "fid", "id");
+    public function getMembers() {
+        return FamilyUser::where("fid", $this->fid)->get();
     }
 }

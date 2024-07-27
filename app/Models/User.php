@@ -61,7 +61,7 @@ class User extends Authenticatable
     }
 
     public function getOnline($char_id) {
-        return $this->is_online & $this->main_id == $char_id ? "Online" : "Offline";
+        return $this->is_online & $this->main_id == $char_id ? "<span class='btn btn-sm btn-success'>Online<span>" : "";
     }
 
     public function guild() {

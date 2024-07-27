@@ -107,9 +107,9 @@
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
-                    @foreach ($guild->families as $item)
+                    @foreach ($guild->getFamilies() as $item)
                     <li class="nav-item" role="presentation">
-                        <a href="#tabs-home-{{$item->id}}" class="nav-link {{ $loop->index == 0 ? " active" : "" }}"
+                        <a href="#tabs-home-{{$item->id}}" class="nav-link {{ $loop->index == 0 ? 'active' : '' }}"
                             data-bs-toggle="tab" aria-selected="true" role="tab">{{$item->name}}</a>
                     </li>
                     @endforeach
@@ -117,7 +117,7 @@
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    @foreach ($guild->families as $id)
+                    @foreach ($guild->getFamilies() as $id)
                     <div class="tab-pane {{ $loop->index == 0 ? 'active' : '' }}" id="tabs-home-{{$id->id}}"
                         role="tabpanel">
                         <table class="table table-bordered">
@@ -129,11 +129,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($id->members as $item)
+                                @foreach ($id->getMembers() as $item)
                                 <tr>
                                     <td>{{getName($item->char_id)}}</td>
                                     <td>{{ getNv($item->char_id)->getClass() }}</td>
-                                    <td>{{ getNv($item->char_id)->user->getOnline($item->char_id) }}</td>
+                                    <td>{!! getNv($item->char_id)->user->getOnline($item->char_id) !!}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
