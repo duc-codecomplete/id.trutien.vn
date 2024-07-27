@@ -19,15 +19,47 @@ class GuildController extends Controller
         $familyUser = FamilyUser::where("char_id", Auth::user()->main_id)->first();
         $clan = null;
         $users = [];
+        $chat = [];
+        $smiles = $this->smiles();
+        $fids = [];
         if ($familyUser) {
             $fid = $familyUser->fid;
-            $users = FamilyUser::where("fid", $fid)->get();
+            $fusers = FamilyUser::where("fid", $fid)->get();
             $cid = Family::where("fid", $fid)->first()->guildid;
             $clan = Clan::where("guildid", $cid)->first();
             $families = Family::where("guildid", $cid)->pluck("fid");
             $users = FamilyUser::whereIn("fid", $families)->get();
+            $fids = $fusers->pluck("char_id");
+            try {
+            
+                $response = $this->callGameApi("get", "/html/chats.php", []);
+                $chat = $response["data"];
+                $filtered = collect($chat)->filter(function ($value, int $key) {
+                    return $value["channel"] != "1";
+                });
+                 
+                $chat = $filtered->values()->all();
+            } catch (\Throwable $th) {
+                $chat = [];
+            }
+            
         }
-        return view("guild", ["guild" => $clan, "users" => $users]);
+        $chs = [];
+        $names = [];
+        foreach ($fids as $id) {
+            array_push($names, [
+                "char_id" => $id,
+                "name" => getName("$id")
+            ]);
+        }
+
+        foreach (array_reverse($chat) as $ch) {
+            if(collect($names)->firstWhere('char_id', $ch["char"])) {
+               $ch["name"] = collect($names)->firstWhere('char_id', $ch["char"])["name"];
+               array_push($chs, $ch);
+            }
+        }
+        return view("guild", ["guild" => $clan, "users" => $users, "chs" => $chs, "smiles" => $smiles, "fids" => $fids]);
     }
 
     /**
