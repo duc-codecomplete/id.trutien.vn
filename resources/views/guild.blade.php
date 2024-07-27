@@ -151,7 +151,7 @@ if (!function_exists('replaceSmile')){
     }
 }
 @endphp
-<div class="container-xl">
+<!-- <div class="container-xl">
     <div class="card">
         <div class="row g-0">
             <div class="col-12 col-lg-12 col-xl-12">
@@ -174,63 +174,6 @@ if (!function_exists('replaceSmile')){
                 </div>
                 <div class="position-relative">
                     <div class="chat-messages p-4">
-                        <!-- <div class="chat-message-left pb-4">
-                            <div class="flex-shrink-1 rounded py-2 px-3 ms-3" style="background-color: none">
-                                @if(Session::has('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <small>{{ Session::get('error') }}</small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                @endif
-                                @if(Session::has('success'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <small>{{ Session::get('success') }}</small>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                @endif
-                                <form class="input-group" action="" method="POST">
-                                    @csrf
-                                    <input type="text" class="form-control" name="msg" required>
-                                    <button type="submit" class="btn btn-primary">Gửi</button>
-                                </form>
-                                <small class="text-muted">Bạn sẽ trò chuyện bằng nhân vật: <a href="#">{{ Auth::user()->char ? Auth::user()->char->getName() : "Chưa chọn nhân vật"}}</a>, set lại nhân vật chính đang online game ở trang <a href="/">home</a></small>
-                                    <p><small class="text-muted">Chỉ tham gia vào cuộc trò chuyện được khi tài khoản đang
-                                    online trong, do 1 số hạn chế nên tin nhắn từ web sẽ không thể hiển thị ở lịch sử bên dưới, nhưng vẫn hiển thị trong game!
-                                    game</small></p>
-                                <small class="text-muted">Số lượt chat còn lại: {{ Auth::user()->chat_count }}, nhấn
-                                        vào <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">đây</a>
-                                        mua thêm lượt chat (Vip 6 trở lên miễn phí)</small>
-                            </div>
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Mua lượt chat (100 xu
-                                                = 1 lượt)</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="row p-4" action="/buy/chat" method="POST">
-                                                @csrf
-                                                <div class="col-6">
-                                                    <input type="number" min="1" required name="count" value="1"
-                                                        class="form-control quantity" placeholder="Số lượng">
-                                                </div>
-                                                <div class="col-6">
-                                                    <button type="submit" class="btn btn-mua btn-primary">Mua</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> -->
                         @foreach (($chs) as $ch)
                         <div class="chat-message-left pb-4">
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
@@ -249,7 +192,7 @@ if (!function_exists('replaceSmile')){
     </div>
 </div>
 
-<br>
+<br> -->
 <div class="container-xl mt-1">
         <div class="card">
             <div class="card-header">
