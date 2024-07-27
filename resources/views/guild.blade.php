@@ -123,7 +123,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Nhân Vật</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Nhân Vật</th>
                                     <th scope="col">Môn Phái</th>
                                     <th scope="col">Trạng thái</th>
