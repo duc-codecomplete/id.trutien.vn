@@ -124,6 +124,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nhân Vật</th>
+                                    <th scope="col">Nhân Vật</th>
                                     <th scope="col">Môn Phái</th>
                                     <th scope="col">Trạng thái</th>
                                 </tr>
@@ -131,6 +132,7 @@
                             <tbody>
                                 @foreach ($id->getMembers() as $item)
                                 <tr>
+                                <td>{{$item->char_id}}</td>
                                     <td>{{getName($item->char_id)}}</td>
                                     <td>{{ getNv($item->char_id)->getClass() }}</td>
                                     <td>{!! getNv($item->char_id)->user->getOnline($item->char_id) !!}</td>
