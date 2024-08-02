@@ -43,6 +43,7 @@ class HomeController extends Controller
         $chars = User::whereIn("userid", $onlines)->get();
         return $chars;
     }
+    
 
     public function vip()
     {
@@ -85,5 +86,11 @@ class HomeController extends Controller
     {
         $histories = Deposit::where("user_id", Auth::user()->id)->latest()->get();
         return view("deposit_history", ["histories" => $histories]);
+    }
+
+    public function top()
+    {
+        $top = User::where("rank", ">", 0)->orderBy("rank", "DESC")->get();
+        return view("TOP", ["top" => $top]);
     }
 }

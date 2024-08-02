@@ -84,6 +84,15 @@
                     <div class="item border-bottom py-3">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-auto">
+                                <div class="item-label"><strong>Điểm chiến tích</strong></div>
+                                <div class="item-data"><span style="">{{ ($user->rank) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item border-bottom py-3">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-auto">
                                 <div class="item-label"><strong>Cấp VIP</strong></div>
                                 <div class="item-data"><span style="">{{ $user->viplevel }}</span></div>
                             </div>

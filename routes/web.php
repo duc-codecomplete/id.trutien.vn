@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/online', [HomeController::class, 'online'])->name("online");
     Route::get('/lich-su-mua', [ShopController::class, 'shopHistory'])->name("shopHistory");
     Route::get('/vip', [HomeController::class, 'vip'])->name("vip");
+    Route::get('/top', [HomeController::class, 'top'])->name("top");
     Route::get('/chat', [HomeController::class, 'chat'])->name("chat");
     Route::post('/chat', [AuthController::class, 'postChat'])->name("postChat");
     Route::get('/bang-hoi', [GuildController::class, 'getGuild'])->name("guild");
