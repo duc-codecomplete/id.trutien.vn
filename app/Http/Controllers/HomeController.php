@@ -91,6 +91,6 @@ class HomeController extends Controller
     public function top()
     {
         $top = User::where("rank", ">", 0)->orderBy("rank", "DESC")->get();
-        return view("TOP", ["top" => $top]);
+        return view("top", ["top" => $top]);
     }
 }
