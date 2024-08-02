@@ -151,7 +151,8 @@ if (!function_exists('replaceSmile')){
     }
 }
 @endphp
-<!-- <div class="container-xl">
+@if(request()->show == "yes")
+<div class="container-xl">
     <div class="card">
         <div class="row g-0">
             <div class="col-12 col-lg-12 col-xl-12">
@@ -191,8 +192,9 @@ if (!function_exists('replaceSmile')){
         </div>
     </div>
 </div>
+@endif
 
-<br> -->
+<br>
 <div class="container-xl mt-1">
         <div class="card">
             <div class="card-header">
