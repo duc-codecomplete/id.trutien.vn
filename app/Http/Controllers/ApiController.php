@@ -110,7 +110,6 @@ class ApiController extends Controller
                 
             }
         }
-        return $families_res;
         DB::table("families")->truncate();
         Family::insert($families_res);
         $users = (explode("\n", $parts[2]));
